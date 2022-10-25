@@ -8,13 +8,21 @@ function addListBtn() {
    const addListForm = document.querySelector('#add-list-form');
     addListBtn.addEventListener('click', () => {
         addListForm.setAttribute('style', 'display: block'); 
-
+    });
         addListForm.addEventListener('submit', function(event) {
         event.preventDefault(); 
-        addList.getData(event.target);
         addListForm.setAttribute('style', 'display: none');
-    })
- });
+        addList.add(event.target);
+        makeListCard(); 
+    });
+}; 
+
+function makeListCard(){
+        const listContainer = document.querySelector('#list-interface');
+        const card = document.createElement('div')
+        listContainer.appendChild(card); 
+        card.classList.add('list-card'); 
+        return; 
 }; 
 
 
@@ -22,6 +30,8 @@ function addListBtn() {
 
 
 
+
+// for (let i = 0; i !== addList.allLists.length; i++) {
 
 
 export { addListBtn }

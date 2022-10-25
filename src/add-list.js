@@ -2,6 +2,7 @@ import './index.css'
 import { format, compareAsc } from 'date-fns'
 import addDays from 'date-fns/addDays'
 
+let allLists = []; 
 
 function getData(form){
     let valuesArr = []; 
@@ -12,13 +13,20 @@ function getData(form){
     return valuesArr; 
 };
 
-const makeList = (title, taskList, finishedTasks, description) => {
+const makeList = (title, description, taskList, finishedTasks) => {
     taskList = []; 
     finishedTasks = []; 
-    return { title, taskList, finishedTasks, description }
+    return { title, description, taskList, finishedTasks }
 };
 
+function add(form){
+    const formData = getData(form);
+    const list = makeList(formData[0], formData[1]); 
+    allLists.push(list); 
+    console.log(allLists)
+    
+}
 
 
 
-export { makeList, getData }
+export { makeList, getData, add, allLists }

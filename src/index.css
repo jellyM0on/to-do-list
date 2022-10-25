@@ -31,3 +31,10 @@ html, body, #content{
 #add-list-form{
     display: none;
 }
+
+.list-card{
+    background-color: aliceblue;
+    height: 200px;
+    width: 200px; 
+    border:solid;
+}
