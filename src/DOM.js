@@ -3,9 +3,16 @@ import { format, compareAsc, getOverlappingDaysInIntervals } from 'date-fns'
 import addDays from 'date-fns/addDays'
 import * as addList from './add-list'
 
+function make(element, parent, className) {
+    const newElement = document.createElement(element);
+    parent.appendChild(newElement); 
+    newElement.classList.add(className); 
+    return newElement; 
+}
+
 function addListBtn() {
     const addListBtn = document.querySelector('#list-maker'); 
-   const addListForm = document.querySelector('#add-list-form');
+    const addListForm = document.querySelector('#add-list-form');
     addListBtn.addEventListener('click', () => {
         addListForm.setAttribute('style', 'display: block'); 
     });
@@ -18,12 +25,31 @@ function addListBtn() {
 }; 
 
 function makeListCard(){
+        const index = addList.allLists[addList.allLists.length - 1]; 
         const listContainer = document.querySelector('#list-interface');
-        const card = document.createElement('div')
-        listContainer.appendChild(card); 
-        card.classList.add('list-card'); 
-        return; 
+        const card = make('div', listContainer, 'list-card');
+        const cardHeader = make('div', card, null);
+        cardHeader.textContent = index.title; 
+        const cardItemCount = make('div', card, null);
+
+        if (index.cardItemCount == undefined){
+            cardItemCount.textContent = `0 List Items`;
+        } else{
+            cardItemCount.textContent = `${index.cardItemCount} List Items`;
+        }
+        
+        if (index.cardUnfinishedCount == undefined){
+            cardItemCount.textContent = `0 List Items`;
+        } else{
+            cardItemCount.textContent = `${index.cardUnfinishedCount} List Items`;
+        }
+
+        const cardUnfinishedCount = make('div', card, null); 
+        const cardDescription = make('div', card, null);
+        cardDescription.textContent = index.description; 
 }; 
+
+
 
 
 

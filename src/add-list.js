@@ -23,8 +23,6 @@ function add(form){
     const formData = getData(form);
     const list = makeList(formData[0], formData[1]); 
     allLists.push(list); 
-    console.log(allLists)
-    
 }
 
 
