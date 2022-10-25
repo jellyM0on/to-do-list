@@ -10,10 +10,27 @@
     <script src="main.js" defer></script>
 
 <div id="content">
+    <div id="sidebar">
+        <div class="heading"></div>
+        <div class="sidebar-items">
+            <div>All</div>
+            <div>To-do Lists</div>
+        </div>
+    </div>
 
+    <div id="list-interface">
+        <button id="list-maker">Add List</button>
+        
+            <form id="add-list-form">
+                <label for="list-title">List Name: </label>
+                <input type="text" id="list-title" class="list-form" name="title">
+                <label for="list-description">Description: </label>
+                <textarea id="list-description" class="list-form" name="description" cols="30" rows="10" placeholder="Enter a short description..."></textarea>
+                <button type="submit">Submit</button>
+            </form>
+        
+    </div>
 
-
-    
 </div>
 </body>
 </html>

@@ -1,0 +1,33 @@
+:root{
+    --form-visibility: block; 
+}
+
+html, body, #content{
+    margin: 0; 
+    width: 100%;
+    height: 100%;
+}
+
+#content{
+    display: flex;
+    flex-direction: row;
+}
+
+#sidebar{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 10%; 
+    background-color: pink;
+}
+
+#list-interface{
+    height: 100%; 
+    width: 90%; 
+    background-color: antiquewhite;
+}
+
+
+#add-list-form{
+    display: none;
+}
