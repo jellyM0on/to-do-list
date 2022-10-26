@@ -81,6 +81,7 @@ function replacePage(card) {
     if (listPage.lastElementChild == present){
         listPage.lastElementChild.remove(); 
         existingDropdown.remove(); 
+        
     }; 
 
     makePage(card);
@@ -95,6 +96,38 @@ function makePage(card){
     const listInfo = findList(card); 
     const pageTitle = make('div', page, 'to-do-list'); 
     pageTitle.textContent = listInfo.title; 
+    makeListItems(page, listInfo);
+
+};
+
+function checkExisting(){
+    const parent = document.querySelector('.list-page')
+    const existingItems = document.querySelector('.list');
+    console.log(parent.childNodes[1]); 
+    if(!existingItems){
+        return; 
+    }else if(parent.firstElementChild.nextElementSibling == existingItems) {
+        existingItems.remove(); 
+    }
+
+}
+
+function makeListItems(parent, parentList){
+    console.log('hi')
+    const taskList = make('div', parent, 'list');
+    const  list = parentList.taskList; 
+
+    for (let i = 0; i < list.length; i++){
+        const listItem = make('input', taskList, 'list-item'); 
+        const itemLabel = make('label', taskList, 'list-item');
+        listItem.setAttribute('type', 'checkbox'); 
+        listItem.setAttribute('name', `list-item${i}`); 
+        listItem.setAttribute('value', 'finishedItem'); 
+        listItem.setAttribute('id', `list-item${i}`);
+        itemLabel.setAttribute('id', `list-item${i}`);
+        itemLabel.textContent = list[i].title; 
+    };
+    console.log(list); 
 };
 
 //move to add-list
@@ -105,21 +138,26 @@ function findList(card){
 };
 
 
+
 function addTaskBtn() {
     const listPage = document.querySelector('.list-page');
-    const addTaskBtn = make('button', listPage, 'add-task');
-    addTaskBtn.textContent = "Add Task";
+    const addTaskBtnn = make('button', listPage, 'add-task');
+    addTaskBtnn.textContent = "Add Task";
 
     const addTaskForm = document.querySelector('#add-task-form'); 
 
-    addTaskBtn.addEventListener('click', () => {
+    addTaskBtnn.addEventListener('click', () => {
         addTaskForm.setAttribute('style', 'display: block');
     }); 
+
     addTaskForm.addEventListener('submit', function(event) {
+        console.log(event.target); 
         event.preventDefault(); 
         addTaskForm.setAttribute('style', 'display: none');
         addTask.addT(event.target);
     }); 
+    x++;
+    
 };
 
 function addSelectionToForm(){
@@ -137,3 +175,6 @@ function addSelectionToForm(){
 // can move task to other lists. move to that list's .taskList and change parentList
 
 export { addListBtn, addTaskBtn }
+
+
+//submit in form bubbles up
