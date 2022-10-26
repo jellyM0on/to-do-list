@@ -13,18 +13,20 @@ function getData(form){
     return valuesArr; 
 };
 
-const makeList = (title, description, taskList, finishedTasks) => {
+const makeList = (title, description, taskList, finishedTasks, code) => {
     taskList = []; 
     finishedTasks = []; 
-    return { title, description, taskList, finishedTasks }
+    code = `code${allLists.length}`;
+    return { title, description, taskList, finishedTasks, code }
 };
 
 function add(form){
     const formData = getData(form);
     const list = makeList(formData[0], formData[1]); 
     allLists.push(list); 
-}
-
+    console.log(allLists);
+    console.log(list);
+};
 
 
 export { makeList, getData, add, allLists }

@@ -19,11 +19,12 @@ html, body, #content{
     height: 100%;
     width: 10%; 
     background-color: pink;
+    display: none;
 }
 
 #list-interface{
     height: 100%; 
-    width: 90%; 
+    width: 50%; 
     background-color: antiquewhite;
 }
 
@@ -32,9 +33,21 @@ html, body, #content{
     display: none;
 }
 
-.list-card{
+[class ^= 'list-card']{
     background-color: aliceblue;
     height: 200px;
     width: 200px; 
     border:solid;
+}
+
+#task-interface{
+    height: 100%;
+    width: 50%;
+    background-color: pink;
+}
+
+.list-page{
+    height: 200px;
+    width: 100px;
+    background-color: white;
 }
