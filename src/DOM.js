@@ -64,12 +64,7 @@ function addListtoSidebar(){
 function listCardListener(){
     const cardList = document.querySelectorAll('.list-card');
     cardList.forEach((card) => card.addEventListener('click', () => {
-        const listPage = document.querySelector('#task-interface');
-        const present = document.querySelector('.list-page');
-        if (listPage.lastElementChild !== present){
-            makePage(card);
-            addTaskBtn();
-        }
+       replacePage(card);
     }));
 
     const cardSideBar = document.querySelectorAll('.sidebar-list'); 
@@ -78,12 +73,27 @@ function listCardListener(){
     }));
 };
 
+function replacePage(card) {
+    const listPage = document.querySelector('#task-interface');
+    const present = document.querySelector('.list-page');
+    const existingDropdown = document.querySelector('.list-dropdown'); 
+
+    if (listPage.lastElementChild == present){
+        listPage.lastElementChild.remove(); 
+        existingDropdown.remove(); 
+    }; 
+
+    makePage(card);
+    addTaskBtn(); 
+    addSelectionToForm(); 
+};
+
 function makePage(card){
     const listPage = document.querySelector('#task-interface');
     const page = make('div', listPage, 'list-page'); 
 
     const listInfo = findList(card); 
-    const pageTitle = make('div', page, null); 
+    const pageTitle = make('div', page, 'to-do-list'); 
     pageTitle.textContent = listInfo.title; 
 };
 
@@ -101,18 +111,6 @@ function addTaskBtn() {
     addTaskBtn.textContent = "Add Task";
 
     const addTaskForm = document.querySelector('#add-task-form'); 
-    const listSelector = document.querySelector('#task-list');
-    // const listSelector = make('select', addTaskForm, null); 
-    // listSelector.setAttribute('name', 'parent-list'); 
-    // listSelector.setAttribute('id', 'task-list');
-    
-    for (let i = 0; i < addList.allLists.length; i++){
-        console.log(addList.allLists)
-        const listOptions = make('option', listSelector, null);
-        listOptions.setAttribute('value', addList.allLists[i].title)
-        listOptions.textContent = addList.allLists[i].title; 
-    };
-
 
     addTaskBtn.addEventListener('click', () => {
         addTaskForm.setAttribute('style', 'display: block');
@@ -122,6 +120,16 @@ function addTaskBtn() {
         addTaskForm.setAttribute('style', 'display: none');
         addTask.addT(event.target);
     }); 
+};
+
+function addSelectionToForm(){
+    const listSelector = document.querySelector('#task-list');
+
+    for (let i = 0; i < addList.allLists.length; i++){
+        const listOptions = make('option', listSelector,'list-dropdown');
+        listOptions.setAttribute('value', addList.allLists[i].title);
+        listOptions.textContent = addList.allLists[i].title; 
+    };
 };
 
 

@@ -52,3 +52,8 @@ html, body, #content{
     width: 100px;
     background-color: white;
 }
+
+.to-do-list{
+    height: 50px;
+    width: 50px;
+}
