@@ -2,6 +2,7 @@ import './index.css'
 import { format, compareAsc, getOverlappingDaysInIntervals } from 'date-fns'
 import addDays from 'date-fns/addDays'
 import * as addList from './add-list'
+import * as addTask from './add-task'
 
 function make(element, parent, className) {
     const newElement = document.createElement(element);
@@ -92,6 +93,7 @@ function makePage(card){
     pageTitle.textContent = listInfo.title; 
 };
 
+//move to add-list
 function findList(card){ 
     const cardCode = card.getAttributeNode("id").value;
     const list = addList.allLists.find(list => list.code == cardCode); 
@@ -99,12 +101,18 @@ function findList(card){
 };
 
 
+function addTaskBtn() {
+    const addTaskBtn = document.querySelector('#add-task'); 
+    const addTaskForm = document.querySelector('#add-task-form'); 
+    addTaskBtn.addEventListener('click', () => {
+        addTaskForm.setAttribute('style', 'display: block');
+    }); 
+    addTaskForm.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        addTask.addT(event.target);
+        
+    }); 
+};
 
 
-
-
-
-
-
-
-export { addListBtn, listCardListener }
+export { addListBtn, addTaskBtn }
