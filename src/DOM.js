@@ -63,7 +63,8 @@ function addListtoSidebar(){
 function listCardListener(){
     const cardList = document.querySelectorAll('.list-card');
     cardList.forEach((card) => card.addEventListener('click', () => {
-        findList(card);
+        removePage(); 
+        makePage(card);
     }));
 
     const cardSideBar = document.querySelectorAll('.sidebar-list'); 
@@ -74,18 +75,29 @@ function listCardListener(){
 
 };
 
-function makePage(){
+function removePage(){
+    const listPage = document.querySelector('#task-interface');
+    const present = document.querySelector('.list-page');
+    if (listPage.lastElementChild == present){
+        listPage.lastElementChild.remove(); 
+    }
+}
+
+function makePage(card){
     const listPage = document.querySelector('#task-interface');
     const page = make('div', listPage, 'list-page'); 
+
+    const listInfo = findList(card); 
+    const pageTitle = make('div', page, null); 
+    pageTitle.textContent = listInfo.title; 
 };
 
 function findList(card){ 
     const cardCode = card.getAttributeNode("id").value;
-    console.log(cardCode); 
     const list = addList.allLists.find(list => list.code == cardCode); 
     return list; 
-    //func will put info listed in list object 
 };
+
 
 
 
