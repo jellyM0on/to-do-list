@@ -63,25 +63,24 @@ function addListtoSidebar(){
 
 function listCardListener(){
     const cardList = document.querySelectorAll('.list-card');
-    cardList.forEach((card) => card.addEventListener('click', () => {
-       replacePage(card);
-    }));
+    cardList[cardList.length-1].addEventListener('click', () => {
+        replacePage(cardList[cardList.length-1])
+    }); 
 
-    const cardSideBar = document.querySelectorAll('.sidebar-list'); 
-    cardSideBar.forEach((card) => card.addEventListener('click', () => {
-        findList(card); 
-    }));
+    // const cardSideBar = document.querySelectorAll('.sidebar-list'); 
+    // cardSideBar.forEach((card) => card.addEventListener('click', () => {
+    //     findList(card); 
+    // }));
 };
 
 function replacePage(card) {
     const listPage = document.querySelector('#task-interface');
     const present = document.querySelector('.list-page');
-    const existingDropdown = document.querySelector('.list-dropdown'); 
+    const existingDropdown = document.querySelectorAll('.list-dropdown'); 
 
     if (listPage.lastElementChild == present){
         listPage.lastElementChild.remove(); 
-        existingDropdown.remove(); 
-        
+        existingDropdown.forEach((dropdown) => dropdown.remove()); 
     }; 
 
     makePage(card);
@@ -96,25 +95,13 @@ function makePage(card){
     const listInfo = findList(card); 
     const pageTitle = make('div', page, 'to-do-list'); 
     pageTitle.textContent = listInfo.title; 
-    makeListItems(page, listInfo);
+    makeListItems(listInfo);
 
 };
 
-function checkExisting(){
-    const parent = document.querySelector('.list-page')
-    const existingItems = document.querySelector('.list');
-    console.log(parent.childNodes[1]); 
-    if(!existingItems){
-        return; 
-    }else if(parent.firstElementChild.nextElementSibling == existingItems) {
-        existingItems.remove(); 
-    }
-
-}
-
-function makeListItems(parent, parentList){
-    console.log('hi')
-    const taskList = make('div', parent, 'list');
+function makeListItems(parentList){
+    const parentContainer = document.querySelector('.list-page'); 
+    const taskList = make('div', parentContainer, 'list');
     const  list = parentList.taskList; 
 
     for (let i = 0; i < list.length; i++){
@@ -122,12 +109,11 @@ function makeListItems(parent, parentList){
         const itemLabel = make('label', taskList, 'list-item');
         listItem.setAttribute('type', 'checkbox'); 
         listItem.setAttribute('name', `list-item${i}`); 
-        listItem.setAttribute('value', 'finishedItem'); 
+        listItem.setAttribute('value', ''); 
         listItem.setAttribute('id', `list-item${i}`);
         itemLabel.setAttribute('id', `list-item${i}`);
         itemLabel.textContent = list[i].title; 
     };
-    console.log(list); 
 };
 
 //move to add-list
@@ -137,8 +123,6 @@ function findList(card){
     return list; 
 };
 
-
-
 function addTaskBtn() {
     const listPage = document.querySelector('.list-page');
     const addTaskBtnn = make('button', listPage, 'add-task');
@@ -147,18 +131,20 @@ function addTaskBtn() {
     const addTaskForm = document.querySelector('#add-task-form'); 
 
     addTaskBtnn.addEventListener('click', () => {
-        addTaskForm.setAttribute('style', 'display: block');
+    addTaskForm.setAttribute('style', 'display: block');
     }); 
+};
 
+function taskFormListener(){
+    const addTaskForm = document.querySelector('#add-task-form'); 
     addTaskForm.addEventListener('submit', function(event) {
         console.log(event.target); 
         event.preventDefault(); 
         addTaskForm.setAttribute('style', 'display: none');
         addTask.addT(event.target);
     }); 
-    x++;
-    
-};
+}; 
+
 
 function addSelectionToForm(){
     const listSelector = document.querySelector('#task-list');
@@ -174,7 +160,7 @@ function addSelectionToForm(){
 // add addTask button for every list. 
 // can move task to other lists. move to that list's .taskList and change parentList
 
-export { addListBtn, addTaskBtn }
+export { addListBtn, addTaskBtn, taskFormListener, listCardListener }
 
 
 //submit in form bubbles up

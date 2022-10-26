@@ -7,7 +7,8 @@ import * as DOM from './DOM'
 const sampledate = format(new Date(2020, 2, 12), 'MM/dd/yyyy');
 
 DOM.addListBtn();
-
+//DOM.listCardListener(); 
+DOM.taskFormListener(); 
 
 
 
