@@ -64,25 +64,19 @@ function addListtoSidebar(){
 function listCardListener(){
     const cardList = document.querySelectorAll('.list-card');
     cardList.forEach((card) => card.addEventListener('click', () => {
-        removePage(); 
-        makePage(card);
+        const listPage = document.querySelector('#task-interface');
+        const present = document.querySelector('.list-page');
+        if (listPage.lastElementChild !== present){
+            makePage(card);
+            addTaskBtn();
+        }
     }));
 
     const cardSideBar = document.querySelectorAll('.sidebar-list'); 
     cardSideBar.forEach((card) => card.addEventListener('click', () => {
         findList(card); 
     }));
-
-
 };
-
-function removePage(){
-    const listPage = document.querySelector('#task-interface');
-    const present = document.querySelector('.list-page');
-    if (listPage.lastElementChild == present){
-        listPage.lastElementChild.remove(); 
-    }
-}
 
 function makePage(card){
     const listPage = document.querySelector('#task-interface');
@@ -102,17 +96,36 @@ function findList(card){
 
 
 function addTaskBtn() {
-    const addTaskBtn = document.querySelector('#add-task'); 
+    const listPage = document.querySelector('.list-page');
+    const addTaskBtn = make('button', listPage, 'add-task');
+    addTaskBtn.textContent = "Add Task";
+
     const addTaskForm = document.querySelector('#add-task-form'); 
+    const listSelector = document.querySelector('#task-list');
+    // const listSelector = make('select', addTaskForm, null); 
+    // listSelector.setAttribute('name', 'parent-list'); 
+    // listSelector.setAttribute('id', 'task-list');
+    
+    for (let i = 0; i < addList.allLists.length; i++){
+        console.log(addList.allLists)
+        const listOptions = make('option', listSelector, null);
+        listOptions.setAttribute('value', addList.allLists[i].title)
+        listOptions.textContent = addList.allLists[i].title; 
+    };
+
+
     addTaskBtn.addEventListener('click', () => {
         addTaskForm.setAttribute('style', 'display: block');
     }); 
     addTaskForm.addEventListener('submit', function(event) {
         event.preventDefault(); 
+        addTaskForm.setAttribute('style', 'display: none');
         addTask.addT(event.target);
-        
     }); 
 };
 
+
+// add addTask button for every list. 
+// can move task to other lists. move to that list's .taskList and change parentList
 
 export { addListBtn, addTaskBtn }

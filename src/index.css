@@ -29,8 +29,8 @@ html, body, #content{
 }
 
 
-#add-list-form,
-#add-task-form{
+#add-list-form, 
+#add-task-form {
     display: none;
 }
 
