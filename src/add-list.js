@@ -13,7 +13,23 @@ function getData(form){
     return valuesArr; 
 };
 
+function findMatch(name) {
+    const names = allLists.find(list => list.title == name); 
+    return names; 
+}; 
+
+function titleNameValidation(title){
+    if(title == ''){
+        return title = `List ${allLists.length}`
+    } else if(findMatch(title)){
+        return title = `${title} List ${allLists.length}`
+    }else {
+        return title;
+    };
+};
+
 const makeList = (title, description, taskList, finishedTasks, code) => {
+    title = titleNameValidation(title);
     taskList = []; 
     finishedTasks = []; 
     code = `code${allLists.length}`;

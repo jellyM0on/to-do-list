@@ -192,14 +192,6 @@ function addSelectionToForm(){
     };
 };
 
-function changePriority(){
-
-};
-
-function changeTaskCount(){
-
-}; 
-
 function finishTask(){
 
 };
