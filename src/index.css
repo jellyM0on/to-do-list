@@ -57,3 +57,7 @@ html, body, #content{
     height: 50px;
     width: 50px;
 }
+
+.high-priority{
+    background-color: pink; 
+}

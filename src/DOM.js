@@ -9,7 +9,7 @@ function make(element, parent, className) {
     parent.appendChild(newElement); 
     newElement.classList.add(className); 
     return newElement; 
-}
+}; 
 
 function addListBtn() {
     const addListBtn = document.querySelector('#list-maker'); 
@@ -36,20 +36,9 @@ function makeListCard(){
         const cardHeader = make('div', card, null);
         cardHeader.textContent = index.title; 
 
-        const cardItemCount = make('div', card, 'cardItemCount');
-        // if (index.cardItemCount == undefined){
-        //     cardItemCount.textContent = `0 Tasks`;
-        // } else{
-        //     cardItemCount.textContent = `${index.cardItemCount} Tasks`;
-        // }
-
-        const cardUnfinishedCount = make('div', card, 'cardFinishedCount'); 
-        // if (index.cardUnfinishedCount == undefined){
-        //     cardUnfinishedCount.textContent = `0 Unfinished Tasks`;
-        // } else{
-        //     cardUnfinishedCount.textContent = `${index.cardUnfinishedCount} Unfinished Tasks`;
-        // }
-
+        make('div', card, 'cardItemCount');
+        make('div', card, 'cardFinishedCount'); 
+       
         const cardDescription = make('div', card, null);
         cardDescription.textContent = index.description; 
         updateCardText();
@@ -111,7 +100,6 @@ function replacePage(card) {
         listPage.lastElementChild.remove(); 
         existingDropdown.forEach((dropdown) => dropdown.remove()); 
     }; 
-
     makePage(card);
     addTaskBtn(); 
     addSelectionToForm(); 
@@ -126,7 +114,6 @@ function makePage(card){
     const pageTitle = make('div', page, 'to-do-list'); 
     pageTitle.textContent = listInfo.title; 
     makeListItems(listInfo);
-
 };
 
 function makeListItems(parentList){
@@ -143,8 +130,23 @@ function makeListItems(parentList){
         listItem.setAttribute('id', `list-item${i}`);
         itemLabel.setAttribute('id', `list-item${i}`);
         itemLabel.textContent = list[i].title; 
+       changePriorityColors(list[i].priority, itemLabel);
     };
 };
+
+function changePriorityColors(itemPriority, item){
+    switch(itemPriority){
+        case ('High'): 
+            item.setAttribute('style', 'background-color: red');
+            break;
+        case 'Medium':
+            item.setAttribute('style', 'background-color: yellow');
+            break;
+        case 'Low': 
+            item.setAttribute('style', 'background-color: green'); 
+            break; 
+    }; 
+}; 
 
 //move to add-list
 function findList(card){ 
@@ -166,6 +168,7 @@ function addTaskBtn() {
     }); 
 };
 
+
 function taskFormListener(){
     const addTaskForm = document.querySelector('#add-task-form'); 
     addTaskForm.addEventListener('submit', function(event) {
@@ -176,7 +179,6 @@ function taskFormListener(){
         const listPage = document.querySelector('.list-page');
         replacePage(listPage); 
         updateCardText(); 
-        
     }); 
 }; 
 
@@ -200,15 +202,15 @@ function changeTaskCount(){
 
 function finishTask(){
 
-}
+};
 
 function removeElement(){
 
-}
+};
 
 function editDetails(){
 
-}
+}; 
 
 
 // add addTask button for every list. 
@@ -217,4 +219,3 @@ function editDetails(){
 export { addListBtn, addTaskBtn, taskFormListener, listCardListener }
 
 
-//submit in form bubbles up
