@@ -36,7 +36,6 @@ function validateTaskName(form){
 
 function moveTaskFrom(task, initial){
     const newInitial = initial.filter(item => item !== task);
-    console.log(newInitial); 
     let newArray;
 
     if (!newInitial){
@@ -50,9 +49,11 @@ function moveTaskFrom(task, initial){
 function moveTaskTo(task, array){
     array.push(task);
     return array; 
-}
+}; 
 
-
+function changeAllList(list){
+    addList.allLists = list; 
+}; 
 
 export { makeTask, addT, addTasktoList, validateTaskName, moveTaskFrom, moveTaskTo }
 

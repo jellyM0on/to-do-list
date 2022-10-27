@@ -44,5 +44,9 @@ function add(form){
     allLists.push(list); 
 };
 
+function changeAllList(list){
+    allLists = list; 
+}; 
 
-export { makeList, getData, add, allLists, findMatch }
+
+export { makeList, getData, add, allLists, findMatch, changeAllList }

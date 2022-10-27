@@ -42,6 +42,7 @@ function makeListCard(){
         const cardDescription = make('div', card, null);
         cardDescription.textContent = index.description; 
         updateCardText();
+        removeBtn(card);
 }; 
 
 function updateCardText() {
@@ -103,7 +104,6 @@ function replacePage(card) {
     makePage(card);
     addTaskBtn(); 
     addSelectionToForm(); 
-    //finishTask(); 
 };
 
 function makePage(card){
@@ -134,6 +134,7 @@ function makeListItems(parentList){
         changePriorityColors(list[i].priority, itemLabel);
     };
     finishTaskListener(); 
+
 };
 
 function changePriorityColors(itemPriority, item){
@@ -219,21 +220,26 @@ function finishTaskListener(){
             updateCardText();
         }
         else if(!box.checked){
-            console.log(list.taskList);
-            console.log(list.finishedTasks);
             list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
-            console.log(task); 
-            console.log(list.taskList);
-            console.log(list.finishedTasks);
-            // list.taskList = addTask.moveTaskTo(task, list.taskList); 
-            // list.finishedTasks = addTask.moveTaskFrom(task, list.finishedTasks); 
             updateCardText(); 
         }
     }));
 };
 
-function removeElement(){
+function removeBtn(parent){
+    const removeBtn = make('button', parent, 'remove-button');
+    removeBtn.textContent = 'Remove';
+    removeBtn.addEventListener('click', (event) => {
+        event.stopPropagation(); 
+        const newArray = addTask.moveTaskFrom(findList(parent), addList.allLists);
+        addList.changeAllList(newArray); 
+        const listPage = document.querySelector('.list-page')
+        if(listPage){
+            listPage.remove();
+        };
+        parent.remove(); 
+    });
 
 };
 
