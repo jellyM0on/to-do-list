@@ -36,23 +36,51 @@ function makeListCard(){
         const cardHeader = make('div', card, null);
         cardHeader.textContent = index.title; 
 
-        const cardItemCount = make('div', card, null);
-        if (index.cardItemCount == undefined){
-            cardItemCount.textContent = `0 Tasks`;
-        } else{
-            cardItemCount.textContent = `${index.cardItemCount} Tasks`;
-        }
+        const cardItemCount = make('div', card, 'cardItemCount');
+        // if (index.cardItemCount == undefined){
+        //     cardItemCount.textContent = `0 Tasks`;
+        // } else{
+        //     cardItemCount.textContent = `${index.cardItemCount} Tasks`;
+        // }
 
-        const cardUnfinishedCount = make('div', card, null); 
-        if (index.cardUnfinishedCount == undefined){
-            cardUnfinishedCount.textContent = `0 Unfinished Tasks`;
-        } else{
-            cardUnfinishedCount.textContent = `${index.cardUnfinishedCount} Unfinished Tasks`;
-        }
+        const cardUnfinishedCount = make('div', card, 'cardFinishedCount'); 
+        // if (index.cardUnfinishedCount == undefined){
+        //     cardUnfinishedCount.textContent = `0 Unfinished Tasks`;
+        // } else{
+        //     cardUnfinishedCount.textContent = `${index.cardUnfinishedCount} Unfinished Tasks`;
+        // }
 
         const cardDescription = make('div', card, null);
         cardDescription.textContent = index.description; 
+        updateCardText();
 }; 
+
+function updateCardText() {
+    const card = document.querySelectorAll('.list-card'); 
+
+    card.forEach((card) => {
+        const itemCount = document.querySelectorAll('.cardItemCount');
+        const fItemCount = document.querySelectorAll('.cardFinishedCount');
+        const list = findList(card); 
+
+        let itemDiv;
+        let fItemDiv; 
+
+        itemCount.forEach((item) => {
+            if (item.parentNode == card){
+                itemDiv = item; 
+            };
+        }); 
+
+        fItemCount.forEach((item) => {
+            if (item.parentNode == card){
+                fItemDiv = item; 
+            }; 
+        }); 
+        itemDiv.textContent = `${list.taskList.length} Tasks`
+        fItemDiv.textContent = `${list.finishedTasks.length} Finished Tasks`
+    }); 
+};
 
 function addListtoSidebar(){
     const index = addList.allLists[addList.allLists.length - 1]; 
@@ -66,6 +94,7 @@ function listCardListener(){
     cardList[cardList.length-1].addEventListener('click', () => {
         replacePage(cardList[cardList.length-1])
     }); 
+    
 
     // const cardSideBar = document.querySelectorAll('.sidebar-list'); 
     // cardSideBar.forEach((card) => card.addEventListener('click', () => {
@@ -93,6 +122,7 @@ function makePage(card){
     const page = make('div', listPage, 'list-page'); 
 
     const listInfo = findList(card); 
+    page.setAttribute('id', `${listInfo.code}`);
     const pageTitle = make('div', page, 'to-do-list'); 
     pageTitle.textContent = listInfo.title; 
     makeListItems(listInfo);
@@ -131,7 +161,8 @@ function addTaskBtn() {
     const addTaskForm = document.querySelector('#add-task-form'); 
 
     addTaskBtnn.addEventListener('click', () => {
-    addTaskForm.setAttribute('style', 'display: block');
+        addTaskForm.setAttribute('style', 'display: block');
+        console.log('sample')
     }); 
 };
 
@@ -142,9 +173,12 @@ function taskFormListener(){
         event.preventDefault(); 
         addTaskForm.setAttribute('style', 'display: none');
         addTask.addT(event.target);
+        const listPage = document.querySelector('.list-page');
+        replacePage(listPage); 
+        updateCardText(); 
+        
     }); 
 }; 
-
 
 function addSelectionToForm(){
     const listSelector = document.querySelector('#task-list');
@@ -155,6 +189,26 @@ function addSelectionToForm(){
         listOptions.textContent = addList.allLists[i].title; 
     };
 };
+
+function changePriority(){
+
+};
+
+function changeTaskCount(){
+
+}; 
+
+function finishTask(){
+
+}
+
+function removeElement(){
+
+}
+
+function editDetails(){
+
+}
 
 
 // add addTask button for every list. 
