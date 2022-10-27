@@ -175,10 +175,14 @@ function taskFormListener(){
         console.log(event.target); 
         event.preventDefault(); 
         addTaskForm.setAttribute('style', 'display: none');
+        //addTask.validateTaskName(event.target);
+        if (addTask.validateTaskName(event.target) == true) {
         addTask.addT(event.target);
+
         const listPage = document.querySelector('.list-page');
         replacePage(listPage); 
         updateCardText(); 
+        };
     }); 
 }; 
 

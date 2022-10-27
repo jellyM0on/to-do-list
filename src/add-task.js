@@ -21,6 +21,16 @@ function addTasktoList(task){
     console.log(parentList.taskList);
 };
 
-export { makeTask, addT, addTasktoList }
+function validateTaskName(form){
+    const formData = addList.getData(form);
+    if(formData[0] == ''){
+        alert("Empty Name")
+        return false;
+    } else{
+        return true; 
+    }
+};
+
+export { makeTask, addT, addTasktoList, validateTaskName }
 
 

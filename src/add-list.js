@@ -21,9 +21,9 @@ function findMatch(name) {
 function titleNameValidation(title){
     if(title == ''){
         return title = `List ${allLists.length}`
-    } else if(findMatch(title)){
-        return title = `${title} List ${allLists.length}`
-    }else {
+    } else if(findMatch(title)) {
+        return title = `${title} (List ${allLists.length})`
+    }else{
         return title;
     };
 };
@@ -40,8 +40,6 @@ function add(form){
     const formData = getData(form);
     const list = makeList(formData[0], formData[1]); 
     allLists.push(list); 
-    console.log(allLists);
-    console.log(list);
 };
 
 
