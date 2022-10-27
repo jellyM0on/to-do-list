@@ -103,6 +103,7 @@ function replacePage(card) {
     makePage(card);
     addTaskBtn(); 
     addSelectionToForm(); 
+    //finishTask(); 
 };
 
 function makePage(card){
@@ -130,8 +131,9 @@ function makeListItems(parentList){
         listItem.setAttribute('id', `list-item${i}`);
         itemLabel.setAttribute('id', `list-item${i}`);
         itemLabel.textContent = list[i].title; 
-       changePriorityColors(list[i].priority, itemLabel);
+        changePriorityColors(list[i].priority, itemLabel);
     };
+    finishTaskListener(); 
 };
 
 function changePriorityColors(itemPriority, item){
@@ -196,8 +198,39 @@ function addSelectionToForm(){
     };
 };
 
-function finishTask(){
+function findMatchCode(name, lists) {
+    const names = lists.find(list => list.code == name); 
+    return names; 
+}; 
 
+function finishTaskListener(){
+    const checkBox = document.querySelectorAll("input[type=checkbox]"); 
+    
+    checkBox.forEach((box) => box.addEventListener('change', () => {
+        const parentList = box.parentElement.parentElement;
+        const list = findList(parentList);
+        const task = findMatchCode(box.getAttribute('id'), list.taskList);
+        const fTask =  findMatchCode(box.getAttribute('id'), list.finishedTasks);
+
+        if (box.checked){
+            console.log('check');
+            list.taskList = addTask.moveTaskFrom(task, list.taskList); 
+            list.finishedTasks = addTask.moveTaskTo(task, list.finishedTasks); 
+            updateCardText();
+        }
+        else if(!box.checked){
+            console.log(list.taskList);
+            console.log(list.finishedTasks);
+            list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
+            list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
+            console.log(task); 
+            console.log(list.taskList);
+            console.log(list.finishedTasks);
+            // list.taskList = addTask.moveTaskTo(task, list.taskList); 
+            // list.finishedTasks = addTask.moveTaskFrom(task, list.finishedTasks); 
+            updateCardText(); 
+        }
+    }));
 };
 
 function removeElement(){

@@ -13,15 +13,17 @@ function getData(form){
     return valuesArr; 
 };
 
-function findMatch(name) {
-    const names = allLists.find(list => list.title == name); 
+function findMatch(name, lists) {
+    const names = lists.find(list => list.title == name); 
     return names; 
 }; 
+
+
 
 function titleNameValidation(title){
     if(title == ''){
         return title = `List ${allLists.length}`
-    } else if(findMatch(title)) {
+    } else if(findMatch(title, allLists)) {
         return title = `${title} (List ${allLists.length})`
     }else{
         return title;
@@ -43,4 +45,4 @@ function add(form){
 };
 
 
-export { makeList, getData, add, allLists }
+export { makeList, getData, add, allLists, findMatch }

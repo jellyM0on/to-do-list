@@ -3,10 +3,12 @@ import addDays from 'date-fns/addDays'
 import * as addList from './add-list'
 
 
-const makeTask = (title, parentList, dueDate, priority, description ) => {
-
-    return { title, parentList, dueDate, priority, description }
+const makeTask = (title, parentList, dueDate, priority, description, code ) => {
+    const list = addList.findMatch(parentList, addList.allLists).taskList;
+    code = `list-item${list.length}`; 
+    return { title, parentList, dueDate, priority, description, code }
 };
+
 
 function addT(form){
     const formData = addList.getData(form);
@@ -19,6 +21,7 @@ function addTasktoList(task){
     const parentList = allLists.find(list => list.title == task.parentList);
     parentList.taskList.push(task); 
     console.log(parentList.taskList);
+    console.log(task); 
 };
 
 function validateTaskName(form){
@@ -31,6 +34,26 @@ function validateTaskName(form){
     }
 };
 
-export { makeTask, addT, addTasktoList, validateTaskName }
+function moveTaskFrom(task, initial){
+    const newInitial = initial.filter(item => item !== task);
+    console.log(newInitial); 
+    let newArray;
+
+    if (!newInitial){
+       return newArray = []; 
+    } else {
+        return newArray = newInitial; 
+    }
+   
+};
+
+function moveTaskTo(task, array){
+    array.push(task);
+    return array; 
+}
+
+
+
+export { makeTask, addT, addTasktoList, validateTaskName, moveTaskFrom, moveTaskTo }
 
 
