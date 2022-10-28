@@ -145,7 +145,7 @@ function viewItems(item){
     viewBtn.addEventListener('click', () => {
             DOMForm.makeForm(); 
             DOMForm.viewForm(item); 
-
+            DOMForm.viewFormListener(item); 
         }); 
     
 };

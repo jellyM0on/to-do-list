@@ -24,11 +24,9 @@ function makeFormDropdowns(data, parent, type){
         if (data == addList.allLists){
             listOptions.setAttribute('value', data[i].title);
             listOptions.textContent = data[i].title; 
-            return;
-        }else{
+        } else {
             listOptions.setAttribute('value', data[i]);
             listOptions.textContent = data[i]; 
-            return;
         }; 
     };
 }; 
@@ -109,11 +107,19 @@ function viewFormListener(task){
     const taskForm = document.querySelector('#add-task-form');
     taskForm.addEventListener('submit', (event) => {
         event.preventDefault(); 
-        const title = document.querySelector('#task-title');
-        
+        const form = addList.getData(event.target);
+        console.log(task.title);
+        task.title = form[0]; 
+        task.parentList = form[1];
+        task.dueDate = form[2];
+        task.priority = form[3];
+        task.description = form[4]; 
+        removeForm(); 
+
+        const cardList = document.querySelectorAll('.list-card');
+        DOM.replacePage(cardList[cardList.length-1])
     });
+}
 
-};
-
-export { makeForm, removeForm, addTaskListener, viewForm }
+export { makeForm, removeForm, addTaskListener, viewForm, viewFormListener }
 
