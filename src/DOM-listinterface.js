@@ -122,7 +122,7 @@ function removeBtn(parent){
         event.stopPropagation(); 
         const newArray = addTask.moveTaskFrom(findList(parent), addList.allLists);
         addList.changeAllList(newArray); 
-       // addList.test();
+        addList.test();
         const listPage = document.querySelector('.list-page')
         if(listPage){
             listPage.remove();

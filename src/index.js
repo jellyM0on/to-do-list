@@ -4,9 +4,8 @@ import addDays from 'date-fns/addDays'
 import * as DOM from './DOM-listinterface'
 import { allLists, makeList, changeAllList } from './add-list';
 
-// DOM.addListBtn();
-// defaultList(); 
-//window.localStorage.removeItem('list');
+
+
 
 function defaultList(){
     const defaultList = makeList("Default List", "This is your first list!");
@@ -15,11 +14,6 @@ function defaultList(){
     DOM.listCardListener(); 
 };
 
-// const defaulte = makeList("Default List", "This is your first list!");
-// allLists.push(defaulte); 
-// const defaultee = makeList("Default", "This is your first list!");
-// allLists.push(defaultee); 
-// console.log(allLists); 
 
 if (!localStorage.getItem('list')){
     console.log('hi');
@@ -27,7 +21,9 @@ if (!localStorage.getItem('list')){
     defaultList(); 
 } else {
     changeAllList(JSON.parse(window.localStorage.getItem('list')));
+    DOM.addListBtn();
     DOM.makeInitialCards(); 
     DOM.initialCardListener(); 
+
 };
 
