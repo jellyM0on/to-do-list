@@ -19,6 +19,11 @@ function findMatch(name, lists) {
 }; 
 
 
+function findMatchCode(name, lists) {
+    const names = lists.find(list => list.code == name); 
+    return names; 
+}; 
+
 
 function titleNameValidation(title){
     if(title == ''){
@@ -49,4 +54,4 @@ function changeAllList(list){
 }; 
 
 
-export { makeList, getData, add, allLists, findMatch, changeAllList }
+export { makeList, getData, add, allLists, findMatch, changeAllList, findMatchCode }

@@ -1,6 +1,7 @@
 import * as addList from './add-list'
 import * as addTask from './add-task'
-import * as DOM from './DOM'
+import * as DOM from './DOM-listinterface'
+import * as DOMTI from './DOM-taskinterface'
 
 function makeFormElements(element, parent, type, name, id){
     const newElement = document.createElement(element);
@@ -24,6 +25,9 @@ function makeFormDropdowns(data, parent, type){
         if (data == addList.allLists){
             listOptions.setAttribute('value', data[i].title);
             listOptions.textContent = data[i].title; 
+            if (data[i].title == autoPickList()){
+                listOptions.setAttribute('selected', 'selected');
+            }
         } else {
             listOptions.setAttribute('value', data[i]);
             listOptions.textContent = data[i]; 
@@ -50,6 +54,7 @@ function makeForm(){
     taskList.setAttribute('id', 'task-list'); 
     taskList.setAttribute('name', 'task-list'); 
     makeFormDropdowns(addList.allLists, taskList, 'list');
+    console.log(autoPickList())
     
     addFormLabels(viewForm, 'task-date', 'Due Date:');
     makeFormElements('input', viewForm, 'date', 'task-date', 'task-date'); 
@@ -75,7 +80,9 @@ function makeForm(){
 
 function removeForm(){
     const form = document.querySelector('#add-task-form'); 
+    if(form){
     form.remove(); 
+    };
 };
 
 function addTaskListener(){
@@ -83,16 +90,23 @@ function addTaskListener(){
     taskForm.addEventListener('submit', function(event) {
         console.log(event.target); 
         event.preventDefault(); 
+
         if (addTask.validateTaskName(event.target) == true) {
         addTask.addT(event.target);
         const listPage = document.querySelector('.list-page');
         console.log(listPage); 
-        DOM.replacePage(listPage); 
+        DOMTI.replacePage(listPage); 
         DOM.updateCardText(); 
         removeForm(); 
         };
     }); 
 }; 
+
+function autoPickList(){
+    const page = document.querySelector('.list-page');
+    const list = DOM.findList(page);
+    return list.title; 
+};
 
 function viewForm(task){
     setExistingValues('#task-title', task.title);
@@ -122,7 +136,7 @@ function viewFormListener(task){
         removeForm(); 
 
         const cardList = document.querySelectorAll('.list-card');
-        DOM.replacePage(cardList[cardList.length-1]);
+        DOMTI.replacePage(cardList[cardList.length-1]);
     });
 };
 
