@@ -7,7 +7,7 @@ import * as DOMForm from './DOM-taskform'
 function makeListItems(parentList){
     const parentContainer = document.querySelector('.list-page'); 
     const taskList = DOM.make('div', parentContainer, 'list');
-    const  list = parentList.taskList; 
+    const  list = parentList.taskList;
 
     for (let i = 0; i < list.length; i++){
         const itemsContainer = DOM.make('div', taskList, 'item-container'); 

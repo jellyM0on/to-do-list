@@ -44,7 +44,10 @@ function makeListCard(){
         const cardDescription = make('div', card, null);
         cardDescription.textContent = index.description; 
         updateCardText();
-        removeBtn(card);
+
+        if(addList.allLists.length !== 1){
+            removeBtn(card);
+        }
 }; 
 
 function makeInitialCards(){
@@ -61,7 +64,10 @@ function makeInitialCards(){
         const cardDescription = make('div', card, null);
         cardDescription.textContent = list.description; 
         updateCardText();
-        removeBtn(card);
+        if(addList.allLists.indexOf(list) !== 0){
+            removeBtn(card);
+        };
+        
     });
 };
 
@@ -116,6 +122,7 @@ function removeBtn(parent){
         event.stopPropagation(); 
         const newArray = addTask.moveTaskFrom(findList(parent), addList.allLists);
         addList.changeAllList(newArray); 
+       // addList.test();
         const listPage = document.querySelector('.list-page')
         if(listPage){
             listPage.remove();
