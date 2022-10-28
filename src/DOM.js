@@ -18,7 +18,7 @@ function addListBtn() {
     addListBtn.addEventListener('click', () => {
         addListForm.setAttribute('style', 'display: block'); 
     });
-        addListForm.addEventListener('submit', function(event) {
+    addListForm.addEventListener('submit', function(event) {
         event.preventDefault(); 
         addListForm.setAttribute('style', 'display: none');
         addList.add(event.target);
@@ -26,6 +26,7 @@ function addListBtn() {
         addListtoSidebar(); 
         listCardListener(); 
     });
+    DOMForm.closeBtnListener();  
 }; 
 
 //split apart

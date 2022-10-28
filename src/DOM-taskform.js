@@ -36,6 +36,11 @@ function makeForm(){
     const viewForm = DOM.make('form', contentWindow, 'view-form'); 
     viewForm.setAttribute('id', 'add-task-form'); 
 
+    const closeBtn = DOM.make('button', viewForm, 'form-close-btn');
+    closeBtn.textContent = 'X';
+    closeBtnListener(); 
+    
+
     DOM.make('label', viewForm, null).setAttribute('for', 'task-title'); 
     const taskTitle = makeFormElements('input', viewForm, 'text', 'task-title', 'task-title'); 
     taskTitle.setAttribute('placeholder', 'Task Name...')
@@ -121,5 +126,20 @@ function viewFormListener(task){
     });
 };
 
-export { makeForm, removeForm, addTaskListener, viewForm, viewFormListener }
+function closeBtnListener(){
+    const closeBtn = document.querySelectorAll('.form-close-btn');
+    const addListForm = document.querySelector('#add-list-form');
+    closeBtn.forEach((button) => button.addEventListener('click', (event) => {
+        event.preventDefault(); 
+        if (button.parentElement.getAttributeNode('id').value == 'add-task-form'){
+            removeForm(); 
+        } else {
+            addListForm.setAttribute('style', 'display: none');
+        };
+    }));
+};
+
+
+
+export { makeForm, removeForm, addTaskListener, viewForm, viewFormListener, closeBtnListener }
 
