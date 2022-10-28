@@ -24,9 +24,11 @@ function makeFormDropdowns(data, parent, type){
         if (data == addList.allLists){
             listOptions.setAttribute('value', data[i].title);
             listOptions.textContent = data[i].title; 
+            return;
         }else{
             listOptions.setAttribute('value', data[i]);
             listOptions.textContent = data[i]; 
+            return;
         }; 
     };
 }; 
@@ -46,29 +48,26 @@ function makeForm(){
     taskList.setAttribute('name', 'task-list'); 
     makeFormDropdowns(addList.allLists, taskList, 'list');
     
-
     addFormLabels(viewForm, 'task-date', 'Due Date:');
     makeFormElements('input', viewForm, 'date', 'task-date', 'task-date'); 
     
     addFormLabels(viewForm, 'task-list', 'Priority:');
     let priorities = ['--', 'High', 'Medium', 'Low'];
     const taskPriority = DOM.make('select', viewForm, null);
-    taskList.setAttribute('id', 'task-list'); 
-    taskList.setAttribute('name', 'task-list'); 
+    taskPriority.setAttribute('id', 'task-priority'); 
+    taskPriority.setAttribute('name', 'task-priority'); 
     makeFormDropdowns(priorities, taskPriority, 'priority'); 
     
     addFormLabels(viewForm, 'task-description', 'Description:')
     const taskDescrip = DOM.make('textarea', viewForm, null);
-    taskDescrip.setAttribute('id', 'task-description')
+    taskDescrip.setAttribute('name', 'task-description');
+    taskDescrip.setAttribute('id', 'task-description');
     taskDescrip.setAttribute('cols', 30);
     taskDescrip.setAttribute('rows', 4); 
     
     const submitBtn = DOM.make('button', viewForm, 'view-form-submit'); 
     submitBtn.setAttribute('type', 'submit'); 
-    submitBtn.textContent = 'Submit'; 
-
-    formListener(); 
-    
+    submitBtn.textContent = 'Submit'
 };
 
 function removeForm(){
@@ -76,16 +75,13 @@ function removeForm(){
     form.remove(); 
 };
 
-function formListener(){
-    const addTaskForm = document.querySelector('#add-task-form'); 
-    addTaskForm.addEventListener('submit', function(event) {
+function addTaskListener(){
+    const taskForm = document.querySelector('#add-task-form'); 
+    taskForm.addEventListener('submit', function(event) {
         console.log(event.target); 
         event.preventDefault(); 
-        //addTaskForm.setAttribute('style', 'display: none');
-        //addTask.validateTaskName(event.target);
         if (addTask.validateTaskName(event.target) == true) {
         addTask.addT(event.target);
-
         const listPage = document.querySelector('.list-page');
         console.log(listPage); 
         DOM.replacePage(listPage); 
@@ -95,5 +91,29 @@ function formListener(){
     }); 
 }; 
 
-export { makeForm, removeForm, formListener }
+function viewForm(task){
+    setExistingValues('#task-title', task.title);
+    setExistingValues('#task-list', task.parentList); 
+    setExistingValues('#task-date', task.dueDate); 
+    setExistingValues('#task-priority', task.priority); 
+    const description = document.querySelector('#task-description'); 
+    description.textContent = task.description; 
+};
+
+function setExistingValues(id, value){
+    const element = document.querySelector(id); 
+    element.setAttribute('value', `${value}`)
+};
+
+function viewFormListener(task){
+    const taskForm = document.querySelector('#add-task-form');
+    taskForm.addEventListener('submit', (event) => {
+        event.preventDefault(); 
+        const title = document.querySelector('#task-title');
+        
+    });
+
+};
+
+export { makeForm, removeForm, addTaskListener, viewForm }
 

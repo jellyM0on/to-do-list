@@ -134,18 +134,20 @@ function makeListItems(parentList){
         make('button', taskList, 'task-view-btn').textContent = 'View';
         make('button', taskList, 'task-delete-btn').textContent = 'Remove'; 
         changePriorityColors(list[i].priority, itemLabel);
+        viewItems(list[i]);
     };
     finishTaskListener();  
-
 };
 
-function viewItems(){
-    const viewBtn = document.querySelectorAll('.task-view-btn'); 
-    viewBtn.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            makeForm(); 
-        })
-    })
+function viewItems(item){
+    const viewBtns = document.querySelectorAll('.task-view-btn'); 
+    const viewBtn = viewBtns[viewBtns.length-1]; 
+    viewBtn.addEventListener('click', () => {
+            DOMForm.makeForm(); 
+            DOMForm.viewForm(item); 
+
+        }); 
+    
 };
 
 function changePriorityColors(itemPriority, item){
@@ -174,24 +176,12 @@ function addTaskBtn() {
     const addTaskBtnn = make('button', listPage, 'add-task');
     addTaskBtnn.textContent = "Add Task";
 
-
     addTaskBtnn.addEventListener('click', () => {
         DOMForm.makeForm(); 
-        //taskFormListener(); 
-        //DOMForm.removeForm(); 
+        DOMForm.addTaskListener(); 
     }); 
 };
 
-
-// function addSelectionToForm(){
-//     const listSelector = document.querySelector('#task-list');
-
-//     for (let i = 0; i < addList.allLists.length; i++){
-//         const listOptions = make('option', listSelector,'list-dropdown');
-//         listOptions.setAttribute('value', addList.allLists[i].title);
-//         listOptions.textContent = addList.allLists[i].title; 
-//     };
-// };
 
 function findMatchCode(name, lists) {
     const names = lists.find(list => list.code == name); 

@@ -6,12 +6,14 @@ import * as addList from './add-list'
 const makeTask = (title, parentList, dueDate, priority, description, code ) => {
     const list = addList.findMatch(parentList, addList.allLists).taskList;
     code = `list-item${list.length}`; 
+    console.log(priority);
     return { title, parentList, dueDate, priority, description, code }
 };
 
 
 function addT(form){
     const formData = addList.getData(form);
+    console.log(formData[3])
     const task = makeTask(formData[0], formData[1], formData[2], formData[3], formData[4]); 
     addTasktoList(task);
 };
