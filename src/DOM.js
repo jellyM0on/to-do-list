@@ -104,7 +104,6 @@ function replacePage(card) {
     }; 
     makePage(card);
     addTaskBtn(); 
-    addSelectionToForm(); 
 };
 
 function makePage(card){
@@ -136,8 +135,7 @@ function makeListItems(parentList){
         make('button', taskList, 'task-delete-btn').textContent = 'Remove'; 
         changePriorityColors(list[i].priority, itemLabel);
     };
-    finishTaskListener(); 
-    DOMForm.makeViewForm(); 
+    finishTaskListener();  
 
 };
 
@@ -145,7 +143,7 @@ function viewItems(){
     const viewBtn = document.querySelectorAll('.task-view-btn'); 
     viewBtn.forEach((btn) => {
         btn.addEventListener('click', () => {
-            makeViewForm(); 
+            makeForm(); 
         })
     })
 };
@@ -176,41 +174,24 @@ function addTaskBtn() {
     const addTaskBtnn = make('button', listPage, 'add-task');
     addTaskBtnn.textContent = "Add Task";
 
-    const addTaskForm = document.querySelector('#add-task-form'); 
 
     addTaskBtnn.addEventListener('click', () => {
-        addTaskForm.setAttribute('style', 'display: block');
-        console.log('sample')
+        DOMForm.makeForm(); 
+        //taskFormListener(); 
+        //DOMForm.removeForm(); 
     }); 
 };
 
 
-function taskFormListener(){
-    const addTaskForm = document.querySelector('#add-task-form'); 
-    addTaskForm.addEventListener('submit', function(event) {
-        console.log(event.target); 
-        event.preventDefault(); 
-        addTaskForm.setAttribute('style', 'display: none');
-        //addTask.validateTaskName(event.target);
-        if (addTask.validateTaskName(event.target) == true) {
-        addTask.addT(event.target);
+// function addSelectionToForm(){
+//     const listSelector = document.querySelector('#task-list');
 
-        const listPage = document.querySelector('.list-page');
-        replacePage(listPage); 
-        updateCardText(); 
-        };
-    }); 
-}; 
-
-function addSelectionToForm(){
-    const listSelector = document.querySelector('#task-list');
-
-    for (let i = 0; i < addList.allLists.length; i++){
-        const listOptions = make('option', listSelector,'list-dropdown');
-        listOptions.setAttribute('value', addList.allLists[i].title);
-        listOptions.textContent = addList.allLists[i].title; 
-    };
-};
+//     for (let i = 0; i < addList.allLists.length; i++){
+//         const listOptions = make('option', listSelector,'list-dropdown');
+//         listOptions.setAttribute('value', addList.allLists[i].title);
+//         listOptions.textContent = addList.allLists[i].title; 
+//     };
+// };
 
 function findMatchCode(name, lists) {
     const names = lists.find(list => list.code == name); 
@@ -267,6 +248,6 @@ function editDetails(){
 // add addTask button for every list. 
 // can move task to other lists. move to that list's .taskList and change parentList
 
-export { addListBtn, addTaskBtn, taskFormListener, listCardListener, make }
+export { addListBtn, addTaskBtn, listCardListener, make, replacePage, updateCardText }
 
 
