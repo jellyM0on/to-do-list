@@ -68,13 +68,16 @@ function finishTaskListener(){
             list.taskList = addTask.moveTaskFrom(task, list.taskList); 
             list.finishedTasks = addTask.moveTaskTo(task, list.finishedTasks); 
             DOM.updateCardText();
+            addList.test();
         }
         else if(!box.checked){
             list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
             DOM.updateCardText(); 
+            addList.test();
         }
-    }));
+    }
+    ));
 };
 
 function removeTasks(taskContainer){
@@ -89,6 +92,7 @@ function removeTasks(taskContainer){
         console.log(newArray); 
         taskContainer.remove();
         DOM.updateCardText(); 
+        addList.test();
     }); 
 }; 
 
@@ -110,6 +114,7 @@ function addRemoveAllBtn(){
             task.remove(); 
         });
         DOM.updateCardText(); 
+        addList.test();
     });
 };
 

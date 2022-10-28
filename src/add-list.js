@@ -2,8 +2,11 @@ import './index.css'
 import { format, compareAsc } from 'date-fns'
 import addDays from 'date-fns/addDays'
 
-
 let allLists = []; 
+
+function test(){
+    window.localStorage.setItem('list', JSON.stringify(allLists));
+}; 
 
 function getData(form){
     let valuesArr = []; 
@@ -19,12 +22,10 @@ function findMatch(name, lists) {
     return names; 
 }; 
 
-
 function findMatchCode(name, lists) {
     const names = lists.find(list => list.code == name); 
     return names; 
 }; 
-
 
 function titleNameValidation(title){
     if(title == ''){
@@ -48,6 +49,7 @@ function add(form){
     const formData = getData(form);
     const list = makeList(formData[0], formData[1]); 
     allLists.push(list); 
+    test(); 
 };
 
 function changeAllList(list){
@@ -55,4 +57,4 @@ function changeAllList(list){
 }; 
 
 
-export { makeList, getData, add, allLists, findMatch, changeAllList, findMatchCode }
+export { test, makeList, getData, add, allLists, findMatch, changeAllList, findMatchCode }

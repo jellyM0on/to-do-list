@@ -133,6 +133,7 @@ function viewFormListener(task){
         task.dueDate = form[2];
         task.priority = form[3];
         task.description = form[4]; 
+        addList.test();
         removeForm(); 
 
         const cardList = document.querySelectorAll('.list-card');

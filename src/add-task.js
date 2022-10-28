@@ -16,14 +16,14 @@ function addT(form){
     console.log(formData[3])
     const task = makeTask(formData[0], formData[1], formData[2], formData[3], formData[4]); 
     addTasktoList(task);
+    addList.test(); 
 };
 
 function addTasktoList(task){
     const allLists = addList.allLists;
     const parentList = allLists.find(list => list.title == task.parentList);
     parentList.taskList.push(task); 
-    console.log(parentList.taskList);
-    console.log(task); 
+    
 };
 
 function validateTaskName(form){

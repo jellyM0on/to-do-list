@@ -28,6 +28,7 @@ function makePage(card){
     const listPage = document.querySelector('#task-interface');
     const page = DOM.make('div', listPage, 'list-page'); 
 
+    console.log('make new')
     const listInfo = DOM.findList(card); 
     page.setAttribute('id', `${listInfo.code}`);
     const pageTitle = DOM.make('div', page, 'to-do-list'); 

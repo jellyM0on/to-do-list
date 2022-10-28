@@ -47,6 +47,24 @@ function makeListCard(){
         removeBtn(card);
 }; 
 
+function makeInitialCards(){
+    addList.allLists.forEach((list) => {
+        const listContainer = document.querySelector('#list-interface');
+        const card = make('div', listContainer, `list-card`);
+        card.setAttribute('id', `code${addList.allLists.indexOf(list)}`);
+        const cardHeader = make('div', card, null);
+        cardHeader.textContent = list.title; 
+
+        make('div', card, 'cardItemCount');
+        make('div', card, 'cardFinishedCount'); 
+       
+        const cardDescription = make('div', card, null);
+        cardDescription.textContent = list.description; 
+        updateCardText();
+        removeBtn(card);
+    });
+};
+
 function updateCardText() {
     const card = document.querySelectorAll('.list-card'); 
 
@@ -81,6 +99,15 @@ function listCardListener(){
     }); 
 };
 
+function initialCardListener(){
+    const cardList = document.querySelectorAll('.list-card');
+    console.log(cardList);
+    cardList.forEach((card) => card.addEventListener('click', () => {
+        console.log(card); 
+        DOMTI.replacePage(card); 
+    }))
+}
+
 
 function removeBtn(parent){
     const removeBtn = make('button', parent, 'remove-button');
@@ -104,6 +131,6 @@ function findList(card){
     return list; 
 };
 
-export { addListBtn, listCardListener, make, updateCardText, makeListCard, findList }
+export { addListBtn, listCardListener, make, updateCardText, makeListCard, findList, makeInitialCards, initialCardListener }
 
 
