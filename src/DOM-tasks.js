@@ -20,6 +20,7 @@ function makeListItems(parentList){
         listItem.setAttribute('id', `list-item${i}`);
         itemLabel.setAttribute('id', `list-item${i}`);
         itemLabel.textContent = list[i].title; 
+        DOM.make('div', itemsContainer, 'task-due').textContent = list[i].dueDate
         DOM.make('button', itemsContainer, 'task-view-btn').textContent = 'View';
         DOM.make('button', itemsContainer, 'task-delete-btn').textContent = 'Remove'; 
         changePriorityColors(list[i].priority, itemLabel);
