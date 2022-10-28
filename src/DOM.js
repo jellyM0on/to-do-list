@@ -123,21 +123,39 @@ function makeListItems(parentList){
     const  list = parentList.taskList; 
 
     for (let i = 0; i < list.length; i++){
-        const listItem = make('input', taskList, 'list-item'); 
-        const itemLabel = make('label', taskList, 'list-item');
+        const itemsContainer = make('div', taskList, 'item-container'); 
+        itemsContainer.setAttribute('id', `list-item${i}`);
+        const listItem = make('input', itemsContainer, 'list-item'); 
+        const itemLabel = make('label', itemsContainer, 'list-item');
         listItem.setAttribute('type', 'checkbox'); 
         listItem.setAttribute('name', `list-item${i}`); 
         listItem.setAttribute('value', ''); 
         listItem.setAttribute('id', `list-item${i}`);
         itemLabel.setAttribute('id', `list-item${i}`);
         itemLabel.textContent = list[i].title; 
-        make('button', taskList, 'task-view-btn').textContent = 'View';
-        make('button', taskList, 'task-delete-btn').textContent = 'Remove'; 
+        make('button', itemsContainer, 'task-view-btn').textContent = 'View';
+        make('button', itemsContainer, 'task-delete-btn').textContent = 'Remove'; 
         changePriorityColors(list[i].priority, itemLabel);
         viewItems(list[i]);
+        removeTasks(itemsContainer); 
     };
     finishTaskListener();  
 };
+
+function removeTasks(taskContainer){
+    const removeBtns = document.querySelectorAll('.task-delete-btn'); 
+    const removeBtn = removeBtns[removeBtns.length-1];
+    removeBtn.addEventListener('click', () => {
+        const parentList = taskContainer.parentElement.parentElement;
+        const list = findList(parentList);
+        const task = findMatchCode(taskContainer.getAttribute('id'), list.taskList);
+        const newArray = addTask.moveTaskFrom(task, list.taskList);
+        list.taskList = newArray; 
+        console.log(newArray); 
+        taskContainer.remove();
+        updateCardText(); 
+    }); 
+}; 
 
 function viewItems(item){
     const viewBtns = document.querySelectorAll('.task-view-btn'); 
@@ -147,7 +165,6 @@ function viewItems(item){
             DOMForm.viewForm(item); 
             DOMForm.viewFormListener(item); 
         }); 
-    
 };
 
 function changePriorityColors(itemPriority, item){
@@ -192,7 +209,7 @@ function finishTaskListener(){
     const checkBox = document.querySelectorAll("input[type=checkbox]"); 
     
     checkBox.forEach((box) => box.addEventListener('change', () => {
-        const parentList = box.parentElement.parentElement;
+        const parentList = box.parentElement.parentElement.parentElement;
         const list = findList(parentList);
         const task = findMatchCode(box.getAttribute('id'), list.taskList);
         const fTask =  findMatchCode(box.getAttribute('id'), list.finishedTasks);

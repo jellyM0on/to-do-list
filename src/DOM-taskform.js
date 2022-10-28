@@ -117,9 +117,9 @@ function viewFormListener(task){
         removeForm(); 
 
         const cardList = document.querySelectorAll('.list-card');
-        DOM.replacePage(cardList[cardList.length-1])
+        DOM.replacePage(cardList[cardList.length-1]);
     });
-}
+};
 
 export { makeForm, removeForm, addTaskListener, viewForm, viewFormListener }
 
