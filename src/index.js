@@ -2,11 +2,19 @@ import './index.css'
 import { format, compareAsc } from 'date-fns'
 import addDays from 'date-fns/addDays'
 import * as DOM from './DOM'
+import { allLists, makeList } from './add-list';
 
 
 const sampledate = format(new Date(2020, 2, 12), 'MM/dd/yyyy');
 
+
 DOM.addListBtn();
+
+const defaultList = makeList("Default List", "This is your first list!");
+allLists.push(defaultList); 
+DOM.makeListCard(); 
+DOM.listCardListener(); 
+
 //DOM.listCardListener(); 
 //DOM.taskFormListener(); 
 

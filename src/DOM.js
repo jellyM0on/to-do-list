@@ -23,7 +23,6 @@ function addListBtn() {
         addListForm.setAttribute('style', 'display: none');
         addList.add(event.target);
         makeListCard(); 
-        addListtoSidebar(); 
         listCardListener(); 
     });
     DOMForm.closeBtnListener();  
@@ -74,24 +73,11 @@ function updateCardText() {
     }); 
 };
 
-function addListtoSidebar(){
-    const index = addList.allLists[addList.allLists.length - 1]; 
-    const sideBar = document.querySelector('.sidebar-lists');
-    const list = make('div', sideBar, 'sidebar-list'); 
-    list.textContent = index.title; 
-}; 
-
 function listCardListener(){
     const cardList = document.querySelectorAll('.list-card');
     cardList[cardList.length-1].addEventListener('click', () => {
         replacePage(cardList[cardList.length-1])
     }); 
-    
-
-    // const cardSideBar = document.querySelectorAll('.sidebar-list'); 
-    // cardSideBar.forEach((card) => card.addEventListener('click', () => {
-    //     findList(card); 
-    // }));
 };
 
 function replacePage(card) {
@@ -103,6 +89,11 @@ function replacePage(card) {
         listPage.lastElementChild.remove(); 
         existingDropdown.forEach((dropdown) => dropdown.remove()); 
     }; 
+
+    if (document.querySelector('.view-form')){
+        DOMForm.removeForm(); 
+    }; 
+
     makePage(card);
     addTaskBtn(); 
     addRemoveAllBtn();
@@ -268,10 +259,6 @@ function removeBtn(parent){
 };
 
 
-
-// add addTask button for every list. 
-// can move task to other lists. move to that list's .taskList and change parentList
-
-export { addListBtn, addTaskBtn, listCardListener, make, replacePage, updateCardText }
+export { addListBtn, addTaskBtn, listCardListener, make, replacePage, updateCardText, makeListCard }
 
 
