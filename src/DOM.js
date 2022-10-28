@@ -3,6 +3,7 @@ import { format, compareAsc, getOverlappingDaysInIntervals } from 'date-fns'
 import addDays from 'date-fns/addDays'
 import * as addList from './add-list'
 import * as addTask from './add-task'
+import * as DOMForm from './DOM-taskform'
 
 function make(element, parent, className) {
     const newElement = document.createElement(element);
@@ -136,7 +137,7 @@ function makeListItems(parentList){
         changePriorityColors(list[i].priority, itemLabel);
     };
     finishTaskListener(); 
-    makeViewForm(); 
+    DOMForm.makeViewForm(); 
 
 };
 
@@ -148,71 +149,6 @@ function viewItems(){
         })
     })
 };
-
-function makeFormElements(element, parent, type, name, id){
-    const newElement = document.createElement(element);
-    parent.appendChild(newElement); 
-    //newElement.classList.add(className); 
-    newElement.setAttribute('id', `${id}`);
-    newElement.setAttribute('name', `${name}`); 
-    newElement.setAttribute('type', `${type}`)
-    return newElement; 
-}; 
-
-function makeViewForm(){
-    const contentWindow = document.querySelector('#content');
-    const viewForm = make('form', contentWindow, 'view-form'); 
-
-    make('label', viewForm, null).setAttribute('for', 'task-title'); 
-    const taskTitle = makeFormElements('input', viewForm, 'text', 'task-title', 'task-title'); 
-    taskTitle.setAttribute('placeholder', 'Task Name...')
-
-    addFormLabels(viewForm, 'task-list', 'List:');
-    const taskList = make('select', viewForm, null)
-    taskList.setAttribute('id', 'task-list'); 
-    taskList.setAttribute('name', 'task-list'); 
-    makeFormDropdowns(addList.allLists, taskList, 'list');
-    
-
-    addFormLabels(viewForm, 'task-date', 'Due Date:');
-    makeFormElements('input', viewForm, 'date', 'task-date', 'task-date'); 
-    
-    addFormLabels(viewForm, 'task-list', 'Priority:');
-    let priorities = ['--', 'High', 'Medium', 'Low'];
-    const taskPriority = make('select', viewForm, null);
-    taskList.setAttribute('id', 'task-list'); 
-    taskList.setAttribute('name', 'task-list'); 
-    makeFormDropdowns(priorities, taskPriority, 'priority'); 
-    
-    addFormLabels(viewForm, 'task-description', 'Description:')
-    const taskDescrip = make('textarea', viewForm, null);
-    taskDescrip.setAttribute('id', 'task-description')
-    taskDescrip.setAttribute('cols', 30);
-    taskDescrip.setAttribute('rows', 4); 
-    
-    const submitBtn = make('button', viewForm, 'view-form-submit'); 
-    submitBtn.setAttribute('type', 'submit'); 
-    submitBtn.textContent = 'Submit'; 
-};
-
-function addFormLabels(parent, id, text){
-    const taskDateLabel = make('label', parent, null)
-    taskDateLabel.setAttribute('for', id);
-    taskDateLabel.textContent = text;
-}; 
-
-function makeFormDropdowns(data, parent, type){
-    for (let i = 0; i < data.length; i++){
-        const listOptions = make('option', parent, `${type}-dropdown`);
-        if (data == addList.allLists){
-            listOptions.setAttribute('value', data[i].title);
-            listOptions.textContent = data[i].title; 
-        }else{
-            listOptions.setAttribute('value', data[i]);
-            listOptions.textContent = data[i]; 
-        }; 
-    };
-}; 
 
 function changePriorityColors(itemPriority, item){
     switch(itemPriority){
@@ -331,6 +267,6 @@ function editDetails(){
 // add addTask button for every list. 
 // can move task to other lists. move to that list's .taskList and change parentList
 
-export { addListBtn, addTaskBtn, taskFormListener, listCardListener }
+export { addListBtn, addTaskBtn, taskFormListener, listCardListener, make }
 
 
