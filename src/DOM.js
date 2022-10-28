@@ -104,6 +104,7 @@ function replacePage(card) {
     }; 
     makePage(card);
     addTaskBtn(); 
+    addRemoveAllBtn();
 };
 
 function makePage(card){
@@ -141,6 +142,28 @@ function makeListItems(parentList){
     };
     finishTaskListener();  
 };
+
+function addRemoveAllBtn(){
+    const listPage = document.querySelector('.list-page');
+    const removeTaskBtn = make('button', listPage, 'remove-finished-btn');
+    removeTaskBtn.textContent = 'Remove All Finished Tasks from View'; 
+
+    removeTaskBtn.addEventListener('click', () => {
+        const tasks = document.querySelectorAll('.finished-task'); 
+        tasks.forEach((task) => {
+            const parentList = task.parentElement.parentElement;
+            console.log(parentList); 
+            const list = findList(parentList);
+            const taskObj = findMatchCode(task.getAttribute('id'), list.taskList);
+            const newArray = addTask.moveTaskFrom(taskObj, list.taskList);
+            list.taskList = newArray; 
+            console.log(list.taskList); 
+            task.remove(); 
+        });
+        updateCardText(); 
+    });
+};
+
 
 function removeTasks(taskContainer){
     const removeBtns = document.querySelectorAll('.task-delete-btn'); 
@@ -215,7 +238,7 @@ function finishTaskListener(){
         const fTask =  findMatchCode(box.getAttribute('id'), list.finishedTasks);
 
         if (box.checked){
-            console.log('check');
+            box.parentElement.classList.add('finished-task'); 
             list.taskList = addTask.moveTaskFrom(task, list.taskList); 
             list.finishedTasks = addTask.moveTaskTo(task, list.finishedTasks); 
             updateCardText();
@@ -243,13 +266,6 @@ function removeBtn(parent){
     });
 };
 
-function removeTask(){
-    
-}; 
-
-function editDetails(){
-
-}; 
 
 
 // add addTask button for every list. 
