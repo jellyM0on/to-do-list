@@ -88,7 +88,7 @@ button[type=submit]{
     display: flex;
     flex-direction: column;
     gap: 5px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
 .list-card div:nth-child(1){
@@ -145,13 +145,13 @@ button[type=submit]{
     width: 80%;
     align-self: center;
     background-color: white;
-    border: 1px solid;
+    /* border: 1px solid; */
     border-radius: 20px;
     padding: 5%; 
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 }
 
 .to-do-list{
@@ -175,6 +175,7 @@ button[type=submit]{
     display: flex;
     flex-direction: column;
     gap: 10px;
+
 }
 
 .task-due{
