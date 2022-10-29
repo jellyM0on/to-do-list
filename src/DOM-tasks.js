@@ -11,6 +11,8 @@ function makeListItems(parentList){
     const taskList = DOM.make('div', parentContainer, 'list');
     const list = parentList.allTasks;
     console.log(parentList.allTasks);
+    console.log(parentList.finishedTasks);
+    console.log(parentList.taskList);
 
     for (let i = 0; i < list.length; i++){
         const itemsContainer = DOM.make('div', taskList, 'item-container'); 
@@ -28,21 +30,19 @@ function makeListItems(parentList){
         DOM.make('img', viewBtn, null).setAttribute('src', viewImg)
         const removeBtn = DOM.make('button', itemsContainer, 'task-delete-btn')
         DOM.make('img', removeBtn, null).setAttribute('src', removeImg);
-        makeChecks(list[i].status, listItem); 
+        makeChecks(list[i].status, listItem, itemsContainer); 
         changePriorityColors(list[i].priority, itemLabel);
         viewItems(list[i]);
         removeTasks(itemsContainer); 
     };
     finishTaskListener();  
 };
-function makeChecks(status, box){
-    console.log('giii')
-    if(status == 'checked'){
-        console.log('giii1')
+function makeChecks(status, box, container){
+    if(status == 'checked' && !container.classList.contains('finished-task')){
         box.checked = true;
-        console.log('giii2')
+        container.classList.add('finished-task');
     }
-}
+};
 
 
 
@@ -85,13 +85,11 @@ function finishTaskListener(){
             list.finishedTasks = addTask.moveTaskTo(task, list.finishedTasks); 
             DOM.updateCardText();
             addList.test();
-            //save(box); 
         }
         else if(!box.checked){ 
             const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
             if(box.parentElement.classList.contains('finished-task')){
                 box.parentElement.classList.remove('finished-task');
-               // unsave(box); 
             };
             list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
@@ -113,16 +111,21 @@ function removeTasks(taskContainer){
         
         if (taskContainer.classList.contains('finished-task')){
             const fTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.finishedTasks);
+            const aTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.allTasks);
+
+            const fAllNewArray = addTask.moveTaskFrom(aTask, list.allTasks);
+            list.allTasks = fAllNewArray; 
+            
             const fnewArray = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.finishedTasks = fnewArray; 
-            const fAllNewArray = addTask.moveTaskFrom(fTask, list.allTasks);
-            list.allTasks = fAllNewArray; 
-            console.log(fnewArray); 
+             
         } else {
-            const newArray = addTask.moveTaskFrom(task, list.taskList);
-            list.taskList = newArray; 
             const allNewArray = addTask.moveTaskFrom(task, list.allTasks);
             list.allTasks = allNewArray; 
+
+            const newArray = addTask.moveTaskFrom(task, list.taskList);
+            list.taskList = newArray; 
+           
         }
         taskContainer.remove();
         DOM.updateCardText(); 
@@ -133,14 +136,15 @@ function removeTasks(taskContainer){
 function addRemoveAllBtn(){
     const listPage = document.querySelector('.list-page')
     const removeTaskBtn = DOM.make('button', listPage, 'remove-finished-btn');
-    removeTaskBtn.textContent = '- Remove All Finished Tasks'; 
+    removeTaskBtn.textContent = 'Remove All Finished Tasks'; 
     
 
     removeTaskBtn.addEventListener('click', () => {
         const parentList = DOM.findList(listPage); 
-        parentList.finishedTasks.forEach((task) => {
+        parentList.allTasks.forEach((task) => {
             const newArray = addTask.moveTaskFrom(task, parentList.allTasks);
             parentList.allTasks = newArray; 
+            addList.test();
         }); 
         parentList.finishedTasks = []; 
         const tasks = document.querySelectorAll('.finished-task');

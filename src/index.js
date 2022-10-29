@@ -8,7 +8,7 @@ import { allLists, makeList, changeAllList } from './add-list';
 import { addCurrentDate } from './DOM-taskinterface';
 
 
-localStorage.removeItem('list')
+//localStorage.removeItem('list')
 
 DOMTI.addCurrentDate()
 
@@ -25,12 +25,13 @@ if (!localStorage.getItem('list')){
     defaultList(); 
 } else {
     changeAllList(JSON.parse(window.localStorage.getItem('list')));
-    //loadChecks(); 
     
     DOM.addListBtn();
     DOM.makeInitialCards(); 
     DOM.initialCardListener(); 
 };
+
+console.log(allLists); 
 
 // function loadChecks(){
 //     for (let i=0; i<DOMTask.savedChecks.length; i++){
