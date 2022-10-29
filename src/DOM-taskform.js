@@ -136,8 +136,8 @@ function viewFormListener(task){
         addList.test();
         removeForm(); 
 
-        const cardList = document.querySelectorAll('.list-card');
-        DOMTI.replacePage(cardList[cardList.length-1]);
+        const cardList = document.querySelector('.list-page');
+        DOMTI.replacePage(cardList);
     });
 };
 

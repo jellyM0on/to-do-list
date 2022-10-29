@@ -20,7 +20,6 @@ function defaultList(){
 
 
 if (!localStorage.getItem('list')){
-    console.log('hi');
     DOM.addListBtn();
     defaultList(); 
 } else {

@@ -65,6 +65,7 @@ function finishTaskListener(){
         const parentList = box.parentElement.parentElement.parentElement;
         const list = DOM.findList(parentList);
         const task = addList.findMatchCode(box.getAttribute('id'), list.taskList);
+        const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
 
         if (box.checked){
             box.parentElement.classList.add('finished-task'); 
@@ -74,7 +75,9 @@ function finishTaskListener(){
             addList.test();
         }
         else if(!box.checked){ 
-            const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
+            if(box.parentElement.classList.contains('finished-task')){
+                box.parentElement.classList.remove('finished-task');
+            };
             list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
             DOM.updateCardText(); 
@@ -93,7 +96,6 @@ function removeTasks(taskContainer){
         const task = addList.findMatchCode(taskContainer.getAttribute('id'), list.taskList);
         const newArray = addTask.moveTaskFrom(task, list.taskList);
         list.taskList = newArray; 
-        console.log(newArray); 
         taskContainer.remove();
         DOM.updateCardText(); 
         addList.test();
@@ -106,16 +108,12 @@ function addRemoveAllBtn(){
     removeTaskBtn.textContent = '- Remove All Finished Tasks'; 
 
     removeTaskBtn.addEventListener('click', () => {
-        const tasks = document.querySelectorAll('.finished-task'); 
+        const list = document.querySelector('.list-page');
+        const parentList = DOM.findList(list); 
+        parentList.finishedTasks = []; 
+        const tasks = document.querySelectorAll('.finished-task');
         tasks.forEach((task) => {
-            const parentList = task.parentElement.parentElement;
-            console.log(parentList); 
-            const list = DOM.findList(parentList);
-            const taskObj = addList.findMatchCode(task.getAttribute('id'), list.taskList);
-            const newArray = addTask.moveTaskFrom(taskObj, list.taskList);
-            list.taskList = newArray; 
-            console.log(list.taskList); 
-            task.remove(); 
+            task.remove();
         });
         DOM.updateCardText(); 
         addList.test();

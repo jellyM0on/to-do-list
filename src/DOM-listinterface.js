@@ -109,9 +109,7 @@ function listCardListener(){
 
 function initialCardListener(){
     const cardList = document.querySelectorAll('.list-card');
-    console.log(cardList);
     cardList.forEach((card) => card.addEventListener('click', () => {
-        console.log(card); 
         DOMTI.replacePage(card); 
     }))
 }
