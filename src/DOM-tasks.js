@@ -3,6 +3,8 @@ import * as addTask from './add-task'
 import * as DOM from './DOM-listinterface'
 import * as DOMTI from './DOM-taskinterface'
 import * as DOMForm from './DOM-taskform'
+import removeImg from './icons/trash-can-outline.svg'
+import viewImg from './icons/eye.svg'
 
 function makeListItems(parentList){
     const parentContainer = document.querySelector('.list-page'); 
@@ -21,8 +23,10 @@ function makeListItems(parentList){
         itemLabel.setAttribute('id', `list-item${i}`);
         itemLabel.textContent = list[i].title; 
         DOM.make('div', itemsContainer, 'task-due').textContent = list[i].dueDate
-        DOM.make('button', itemsContainer, 'task-view-btn').textContent = 'View';
-        DOM.make('button', itemsContainer, 'task-delete-btn').textContent = 'Remove'; 
+        const viewBtn = DOM.make('button', itemsContainer, 'task-view-btn')
+        DOM.make('img', viewBtn, null).setAttribute('src', viewImg)
+        const removeBtn = DOM.make('button', itemsContainer, 'task-delete-btn')
+        DOM.make('img', removeBtn, null).setAttribute('src', removeImg);
         changePriorityColors(list[i].priority, itemLabel);
         viewItems(list[i]);
         removeTasks(itemsContainer); 
@@ -33,13 +37,13 @@ function makeListItems(parentList){
 function changePriorityColors(itemPriority, item){
     switch(itemPriority){
         case ('High'): 
-            item.setAttribute('style', 'background-color: red');
+            item.classList.add('priority-high');
             break;
         case 'Medium':
-            item.setAttribute('style', 'background-color: yellow');
+            item.classList.add('priority-med')
             break;
         case 'Low': 
-            item.setAttribute('style', 'background-color: green'); 
+            item. classList.add('priority-low')
             break; 
     }; 
 }; 
@@ -61,7 +65,6 @@ function finishTaskListener(){
         const parentList = box.parentElement.parentElement.parentElement;
         const list = DOM.findList(parentList);
         const task = addList.findMatchCode(box.getAttribute('id'), list.taskList);
-        const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
 
         if (box.checked){
             box.parentElement.classList.add('finished-task'); 
@@ -70,12 +73,13 @@ function finishTaskListener(){
             DOM.updateCardText();
             addList.test();
         }
-        else if(!box.checked){
+        else if(!box.checked){ 
+            const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
             list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
             DOM.updateCardText(); 
             addList.test();
-        }
+        };
     }
     ));
 };
@@ -99,7 +103,7 @@ function removeTasks(taskContainer){
 function addRemoveAllBtn(){
     const listPage = document.querySelector('.list-page');
     const removeTaskBtn = DOM.make('button', listPage, 'remove-finished-btn');
-    removeTaskBtn.textContent = 'Remove All Finished Tasks from View'; 
+    removeTaskBtn.textContent = '- Remove All Finished Tasks'; 
 
     removeTaskBtn.addEventListener('click', () => {
         const tasks = document.querySelectorAll('.finished-task'); 

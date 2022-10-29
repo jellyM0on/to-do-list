@@ -40,7 +40,7 @@ function makePage(card){
 function addTaskBtn() {
     const listPage = document.querySelector('.list-page');
     const addTaskBtnn = DOM.make('button', listPage, 'add-task');
-    addTaskBtnn.textContent = "Add Task";
+    addTaskBtnn.textContent = "+ Add Task";
 
     addTaskBtnn.addEventListener('click', () => {
         DOMForm.makeForm(); 

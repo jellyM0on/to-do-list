@@ -5,7 +5,7 @@ import * as DOM from './DOM-listinterface'
 import { allLists, makeList, changeAllList } from './add-list';
 
 
-
+//localStorage.removeItem('list')
 
 function defaultList(){
     const defaultList = makeList("Default List", "This is your first list!");
