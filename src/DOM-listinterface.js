@@ -24,6 +24,7 @@ function addListBtn() {
         event.preventDefault(); 
         addListForm.setAttribute('style', 'display: none');
         addList.add(event.target);
+        addList.renew();
         makeListCard(); 
         listCardListener(); 
     });

@@ -31,6 +31,7 @@ function titleNameValidation(title){
     if(title == ''){
         return title = `List ${allLists.length}`
     } else if(findMatch(title, allLists)) {
+        console.log(title); 
         return title = `${title} (List ${allLists.length})`
     }else{
         return title;
@@ -52,9 +53,15 @@ function add(form){
     test(); 
 };
 
+function renew(form){
+    const formData = getData(form);
+    formData[0] = ''; 
+    formData[1] = '';
+}
+
 function changeAllList(list){
     allLists = list; 
 }; 
 
 
-export { test, makeList, getData, add, allLists, findMatch, changeAllList, findMatchCode }
+export { test, makeList, getData, add, allLists, findMatch, changeAllList, findMatchCode, renew }

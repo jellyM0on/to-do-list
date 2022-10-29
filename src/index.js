@@ -24,6 +24,5 @@ if (!localStorage.getItem('list')){
     DOM.addListBtn();
     DOM.makeInitialCards(); 
     DOM.initialCardListener(); 
-
 };
 
