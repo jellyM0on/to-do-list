@@ -91,11 +91,19 @@ function removeTasks(taskContainer){
     const removeBtns = document.querySelectorAll('.task-delete-btn'); 
     const removeBtn = removeBtns[removeBtns.length-1];
     removeBtn.addEventListener('click', () => {
-        const parentList = taskContainer.parentElement.parentElement;
+        const parentList = document.querySelector('.list-page')
         const list = DOM.findList(parentList);
         const task = addList.findMatchCode(taskContainer.getAttribute('id'), list.taskList);
-        const newArray = addTask.moveTaskFrom(task, list.taskList);
-        list.taskList = newArray; 
+        
+        if (taskContainer.classList.contains('finished-task')){
+            const fTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.finishedTasks);
+            const fnewArray = addTask.moveTaskFrom(fTask, list.finishedTasks); 
+            list.finishedTasks = fnewArray; 
+            console.log(fnewArray); 
+        } else {
+            const newArray = addTask.moveTaskFrom(task, list.taskList);
+            list.taskList = newArray; 
+        }
         taskContainer.remove();
         DOM.updateCardText(); 
         addList.test();
@@ -119,8 +127,6 @@ function addRemoveAllBtn(){
         addList.test();
     });
 };
-
-
 
 
 export { makeListItems, addRemoveAllBtn }
