@@ -134,12 +134,13 @@ function addRemoveAllBtn(){
     const listPage = document.querySelector('.list-page')
     const removeTaskBtn = DOM.make('button', listPage, 'remove-finished-btn');
     removeTaskBtn.textContent = '- Remove All Finished Tasks'; 
+    
 
     removeTaskBtn.addEventListener('click', () => {
-        const parentList = DOM.findList(list); 
+        const parentList = DOM.findList(listPage); 
         parentList.finishedTasks.forEach((task) => {
-            const newArray = addTask.moveTaskFrom(task, list.allTasks);
-            list.allTasks = newArray; 
+            const newArray = addTask.moveTaskFrom(task, parentList.allTasks);
+            parentList.allTasks = newArray; 
         }); 
         parentList.finishedTasks = []; 
         const tasks = document.querySelectorAll('.finished-task');
@@ -150,24 +151,6 @@ function addRemoveAllBtn(){
         addList.test();
     });
 };
-
-function save(box){
-    savedChecks.push(box); 
-    store(box); 
-
- }; 
-
- function store(box){
-    localStorage.setItem(`checkbox${savedChecks.indexOf(box)}`, box.checked);
- };
-
- //let savedChecks = [];
-    
- function unsave(box){
-    const newChecks = addTask.moveTaskFrom(box, savedChecks);
-    savedChecks = newChecks; 
-    localStorage.removeItem(`${savedChecks.indexOf(box)}`); 
- }; 
 
 
 export { makeListItems, addRemoveAllBtn }

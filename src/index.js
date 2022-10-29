@@ -8,7 +8,7 @@ import { allLists, makeList, changeAllList } from './add-list';
 import { addCurrentDate } from './DOM-taskinterface';
 
 
-//localStorage.removeItem('list')
+localStorage.removeItem('list')
 
 DOMTI.addCurrentDate()
 
