@@ -3,11 +3,11 @@ import addDays from 'date-fns/addDays'
 import * as addList from './add-list'
 
 
-const makeTask = (title, parentList, dueDate, priority, description, code ) => {
+const makeTask = (title, parentList, dueDate, priority, description, status, code ) => {
     const list = addList.findMatch(parentList, addList.allLists).taskList;
     code = `list-item${list.length}`; 
-    console.log(priority);
-    return { title, parentList, dueDate, priority, description, code }
+    status = 'unchecked';
+    return { title, parentList, dueDate, priority, description, status, code }
 };
 
 
@@ -23,7 +23,7 @@ function addTasktoList(task){
     const allLists = addList.allLists;
     const parentList = allLists.find(list => list.title == task.parentList);
     parentList.taskList.push(task); 
-    
+    parentList.allTasks.push(task); 
 };
 
 function validateTaskName(form){

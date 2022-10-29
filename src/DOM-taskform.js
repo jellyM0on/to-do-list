@@ -155,13 +155,6 @@ function closeBtnListener(){
         };
     }));
 };
-// if (button.parentElement.getAttributeNode('id').value !== 'add-task-form' ){
-//     addListForm.setAttribute('style', 'display: none');
-    
-// } else {
-//      removeForm(); 
-// };
-
 
 
 

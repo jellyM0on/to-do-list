@@ -9,7 +9,8 @@ import viewImg from './icons/eye.svg'
 function makeListItems(parentList){
     const parentContainer = document.querySelector('.list-page'); 
     const taskList = DOM.make('div', parentContainer, 'list');
-    const  list = parentList.taskList;
+    const list = parentList.allTasks;
+    console.log(parentList.allTasks);
 
     for (let i = 0; i < list.length; i++){
         const itemsContainer = DOM.make('div', taskList, 'item-container'); 
@@ -27,12 +28,23 @@ function makeListItems(parentList){
         DOM.make('img', viewBtn, null).setAttribute('src', viewImg)
         const removeBtn = DOM.make('button', itemsContainer, 'task-delete-btn')
         DOM.make('img', removeBtn, null).setAttribute('src', removeImg);
+        makeChecks(list[i].status, listItem); 
         changePriorityColors(list[i].priority, itemLabel);
         viewItems(list[i]);
         removeTasks(itemsContainer); 
     };
     finishTaskListener();  
 };
+function makeChecks(status, box){
+    console.log('giii')
+    if(status == 'checked'){
+        console.log('giii1')
+        box.checked = true;
+        console.log('giii2')
+    }
+}
+
+
 
 function changePriorityColors(itemPriority, item){
     switch(itemPriority){
@@ -65,21 +77,25 @@ function finishTaskListener(){
         const parentList = box.parentElement.parentElement.parentElement;
         const list = DOM.findList(parentList);
         const task = addList.findMatchCode(box.getAttribute('id'), list.taskList);
-        const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
 
         if (box.checked){
             box.parentElement.classList.add('finished-task'); 
+            task.status = 'checked'; 
             list.taskList = addTask.moveTaskFrom(task, list.taskList); 
             list.finishedTasks = addTask.moveTaskTo(task, list.finishedTasks); 
             DOM.updateCardText();
             addList.test();
+            //save(box); 
         }
         else if(!box.checked){ 
+            const fTask = addList.findMatchCode(box.getAttribute('id'), list.finishedTasks);
             if(box.parentElement.classList.contains('finished-task')){
                 box.parentElement.classList.remove('finished-task');
+               // unsave(box); 
             };
             list.finishedTasks = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.taskList = addTask.moveTaskTo(fTask, list.taskList); 
+            fTask.status = 'unchecked'; 
             DOM.updateCardText(); 
             addList.test();
         };
@@ -99,10 +115,14 @@ function removeTasks(taskContainer){
             const fTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.finishedTasks);
             const fnewArray = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.finishedTasks = fnewArray; 
+            const fAllNewArray = addTask.moveTaskFrom(fTask, list.allTasks);
+            list.allTasks = fAllNewArray; 
             console.log(fnewArray); 
         } else {
             const newArray = addTask.moveTaskFrom(task, list.taskList);
             list.taskList = newArray; 
+            const allNewArray = addTask.moveTaskFrom(task, list.allTasks);
+            list.allTasks = allNewArray; 
         }
         taskContainer.remove();
         DOM.updateCardText(); 
@@ -111,13 +131,16 @@ function removeTasks(taskContainer){
 }; 
 
 function addRemoveAllBtn(){
-    const listPage = document.querySelector('.list-page');
+    const listPage = document.querySelector('.list-page')
     const removeTaskBtn = DOM.make('button', listPage, 'remove-finished-btn');
     removeTaskBtn.textContent = '- Remove All Finished Tasks'; 
 
     removeTaskBtn.addEventListener('click', () => {
-        const list = document.querySelector('.list-page');
         const parentList = DOM.findList(list); 
+        parentList.finishedTasks.forEach((task) => {
+            const newArray = addTask.moveTaskFrom(task, list.allTasks);
+            list.allTasks = newArray; 
+        }); 
         parentList.finishedTasks = []; 
         const tasks = document.querySelectorAll('.finished-task');
         tasks.forEach((task) => {
@@ -127,6 +150,24 @@ function addRemoveAllBtn(){
         addList.test();
     });
 };
+
+function save(box){
+    savedChecks.push(box); 
+    store(box); 
+
+ }; 
+
+ function store(box){
+    localStorage.setItem(`checkbox${savedChecks.indexOf(box)}`, box.checked);
+ };
+
+ //let savedChecks = [];
+    
+ function unsave(box){
+    const newChecks = addTask.moveTaskFrom(box, savedChecks);
+    savedChecks = newChecks; 
+    localStorage.removeItem(`${savedChecks.indexOf(box)}`); 
+ }; 
 
 
 export { makeListItems, addRemoveAllBtn }

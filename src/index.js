@@ -3,6 +3,7 @@ import { format, compareAsc } from 'date-fns'
 import addDays from 'date-fns/addDays'
 import * as DOM from './DOM-listinterface'
 import * as DOMTI from './DOM-taskinterface'
+import * as DOMTask from './DOM-tasks'
 import { allLists, makeList, changeAllList } from './add-list';
 import { addCurrentDate } from './DOM-taskinterface';
 
@@ -24,8 +25,16 @@ if (!localStorage.getItem('list')){
     defaultList(); 
 } else {
     changeAllList(JSON.parse(window.localStorage.getItem('list')));
+    //loadChecks(); 
+    
     DOM.addListBtn();
     DOM.makeInitialCards(); 
     DOM.initialCardListener(); 
 };
 
+// function loadChecks(){
+//     for (let i=0; i<DOMTask.savedChecks.length; i++){
+//         const checked = JSON.parse(window.localStorage.getItem(`checkbox${i}`));
+//         document.getElementById(`list-item${i}}`).checked == checked;
+//     }; 
+// }

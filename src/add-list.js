@@ -38,12 +38,13 @@ function titleNameValidation(title){
     };
 };
 
-const makeList = (title, description, taskList, finishedTasks, code) => {
+const makeList = (title, description, taskList, finishedTasks, allTasks, code) => {
     title = titleNameValidation(title);
     taskList = []; 
     finishedTasks = []; 
+    allTasks = [];
     code = `code${allLists.length}`;
-    return { title, description, taskList, finishedTasks, code }
+    return { title, description, taskList, finishedTasks, allTasks, code }
 };
 
 function add(form){
