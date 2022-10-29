@@ -146,13 +146,22 @@ function closeBtnListener(){
     const addListForm = document.querySelector('#add-list-form');
     closeBtn.forEach((button) => button.addEventListener('click', (event) => {
         event.preventDefault(); 
-        if (button.parentElement.getAttributeNode('id').value == 'add-task-form'){
-            removeForm(); 
-        } else {
+        console.log(button.parentElement); 
+        if (button.parentElement.getAttributeNode('id').value !== 'add-task-form' ){
             addListForm.setAttribute('style', 'display: none');
+            
+        } else {
+             removeForm(); 
         };
     }));
 };
+// if (button.parentElement.getAttributeNode('id').value !== 'add-task-form' ){
+//     addListForm.setAttribute('style', 'display: none');
+    
+// } else {
+//      removeForm(); 
+// };
+
 
 
 

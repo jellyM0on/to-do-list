@@ -5,6 +5,7 @@ import * as addList from './add-list'
 import * as addTask from './add-task'
 import * as DOMForm from './DOM-taskform'
 import * as DOMTI from './DOM-taskinterface'
+import removeImg from './icons/trash-can-outline.svg'
 
 function make(element, parent, className) {
     const newElement = document.createElement(element);
@@ -117,7 +118,7 @@ function initialCardListener(){
 
 function removeBtn(parent){
     const removeBtn = make('button', parent, 'remove-button');
-    removeBtn.textContent = 'Remove';
+    make('img', removeBtn, null).setAttribute('src', removeImg )
     removeBtn.addEventListener('click', (event) => {
         event.stopPropagation(); 
         const newArray = addTask.moveTaskFrom(findList(parent), addList.allLists);

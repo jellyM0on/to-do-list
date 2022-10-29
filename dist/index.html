@@ -11,21 +11,23 @@
 
 <div id="content">
     <div id="list-interface">
-        <button id="list-maker">Add List</button>
+        <button id="list-maker"><img class= "add-list-img" src="../src/icons/plus.svg" alt="icon"></button>
         
             <form id="add-list-form">
-                <button class="form-close-btn">X</button>
-                <label for="list-title">List Name: </label>
-                <input type="text" id="list-title" class="list-form" name="title" minlength="1" maxlength="20">
-                <label for="list-description">Description: </label>
-                <textarea id="list-description" class="list-form" name="description" cols="30" rows="10" placeholder="Enter a short description..."></textarea>
-                <button type="submit">Submit</button>
+                <div id="list-form" class="list-form">
+                    <button class="form-close-btn">X</button>
+                    <label for="list-title">List Name: </label>
+                    <input type="text" id="list-title" class="list-form" name="title" minlength="1" maxlength="20">
+                    <label for="list-description">Description: </label>
+                    <textarea id="list-description" class="list-form" name="description" cols="30" rows="10" placeholder="Enter a short description..."></textarea>
+                    <button type="submit">Save</button>
+                </div>
             </form>
         
     </div>
 
     <div id="task-interface">
-        <div>To-do</div>
+        <div class="task-interface-header">To-do</div>
         <!-- <button id="full-screen-mode">Full Screen</button> -->
        
 
