@@ -108,19 +108,17 @@ function removeTasks(taskContainer){
         const parentList = document.querySelector('.list-page')
         const list = DOM.findList(parentList);
         const task = addList.findMatchCode(taskContainer.getAttribute('id'), list.taskList);
-        
+        const aTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.allTasks);
+
         if (taskContainer.classList.contains('finished-task')){
             const fTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.finishedTasks);
-            const aTask = addList.findMatchCode(taskContainer.getAttribute('id'), list.allTasks);
-
             const fAllNewArray = addTask.moveTaskFrom(aTask, list.allTasks);
             list.allTasks = fAllNewArray; 
-            
             const fnewArray = addTask.moveTaskFrom(fTask, list.finishedTasks); 
             list.finishedTasks = fnewArray; 
              
         } else {
-            const allNewArray = addTask.moveTaskFrom(task, list.allTasks);
+            const allNewArray = addTask.moveTaskFrom(aTask, list.allTasks);
             list.allTasks = allNewArray; 
 
             const newArray = addTask.moveTaskFrom(task, list.taskList);
