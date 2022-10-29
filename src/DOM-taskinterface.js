@@ -48,9 +48,17 @@ function addTaskBtn() {
     }); 
 };
 
+function addCurrentDate(){
+    const header = document.querySelector('.task-interface-header');
+    const today = new Date();
+    const dd = String(today.getDate()); 
+    const mm = String(today.getMonth());
+    const y = today.getFullYear();
+   
+    header.textContent = `Today is ${mm}/${dd}/${y}`
+}
 
 
 
 
-
-export { replacePage }
+export { replacePage, addCurrentDate }
