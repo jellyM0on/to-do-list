@@ -139,7 +139,7 @@ function addRemoveAllBtn(){
 
     removeTaskBtn.addEventListener('click', () => {
         const parentList = DOM.findList(listPage); 
-        parentList.allTasks.forEach((task) => {
+        parentList.finishedTasks.forEach((task) => {
             const newArray = addTask.moveTaskFrom(task, parentList.allTasks);
             parentList.allTasks = newArray; 
             addList.test();
