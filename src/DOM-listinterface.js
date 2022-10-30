@@ -31,7 +31,6 @@ function addListBtn() {
     DOMForm.closeBtnListener();  
 }; 
 
-//split apart
 function makeListCard(){
         const index = addList.allLists[addList.allLists.length - 1]; 
         const listContainer = document.querySelector('#list-interface');
@@ -49,7 +48,7 @@ function makeListCard(){
 
         if(addList.allLists.length !== 1){
             removeBtn(card);
-        }
+        };
 }; 
 
 function makeInitialCards(){

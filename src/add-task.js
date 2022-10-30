@@ -13,7 +13,6 @@ const makeTask = (title, parentList, dueDate, priority, description, status, cod
 
 function addT(form){
     const formData = addList.getData(form);
-    console.log(formData[3])
     const task = makeTask(formData[0], formData[1], formData[2], formData[3], formData[4]); 
     addTasktoList(task);
     addList.test(); 
@@ -29,7 +28,7 @@ function addTasktoList(task){
 function validateTaskName(form){
     const formData = addList.getData(form);
     if(formData[0] == ''){
-        alert("Empty Name")
+        alert("Empty Name");
         return false;
     } else{
         return true; 
@@ -44,8 +43,7 @@ function moveTaskFrom(task, initial){
        return newArray = []; 
     } else {
         return newArray = newInitial; 
-    }
-   
+    }; 
 };
 
 function moveTaskTo(task, array){
@@ -56,8 +54,6 @@ function moveTaskTo(task, array){
 function changeAllList(list){
     addList.allLists = list; 
 }; 
-
-
 
 export { makeTask, addT, addTasktoList, validateTaskName, moveTaskFrom, moveTaskTo }
 

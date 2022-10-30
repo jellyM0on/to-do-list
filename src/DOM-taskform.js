@@ -6,7 +6,6 @@ import * as DOMTI from './DOM-taskinterface'
 function makeFormElements(element, parent, type, name, id){
     const newElement = document.createElement(element);
     parent.appendChild(newElement); 
-    //newElement.classList.add(className); 
     newElement.setAttribute('id', `${id}`);
     newElement.setAttribute('name', `${name}`); 
     newElement.setAttribute('type', `${type}`)
@@ -54,7 +53,6 @@ function makeForm(){
     taskList.setAttribute('id', 'task-list'); 
     taskList.setAttribute('name', 'task-list'); 
     makeFormDropdowns(addList.allLists, taskList, 'list');
-    console.log(autoPickList())
     
     addFormLabels(viewForm, 'task-date', 'Due Date:');
     makeFormElements('input', viewForm, 'date', 'task-date', 'task-date'); 
@@ -88,13 +86,11 @@ function removeForm(){
 function addTaskListener(){
     const taskForm = document.querySelector('#add-task-form'); 
     taskForm.addEventListener('submit', function(event) {
-        console.log(event.target); 
         event.preventDefault(); 
 
         if (addTask.validateTaskName(event.target) == true) {
         addTask.addT(event.target);
         const listPage = document.querySelector('.list-page');
-        console.log(listPage); 
         DOMTI.replacePage(listPage); 
         DOM.updateCardText(); 
         removeForm(); 
@@ -127,7 +123,6 @@ function viewFormListener(task){
     taskForm.addEventListener('submit', (event) => {
         event.preventDefault(); 
         const form = addList.getData(event.target);
-        console.log(task.title);
         task.title = form[0]; 
         task.parentList = form[1];
         task.dueDate = form[2];
@@ -146,7 +141,6 @@ function closeBtnListener(){
     const addListForm = document.querySelector('#add-list-form');
     closeBtn.forEach((button) => button.addEventListener('click', (event) => {
         event.preventDefault(); 
-        console.log(button.parentElement); 
         if (button.parentElement.getAttributeNode('id').value !== 'add-task-form' ){
             addListForm.setAttribute('style', 'display: none');
             

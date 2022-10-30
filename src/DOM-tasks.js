@@ -10,9 +10,6 @@ function makeListItems(parentList){
     const parentContainer = document.querySelector('.list-page'); 
     const taskList = DOM.make('div', parentContainer, 'list');
     const list = parentList.allTasks;
-    console.log(parentList.allTasks);
-    console.log(parentList.finishedTasks);
-    console.log(parentList.taskList);
 
     for (let i = 0; i < list.length; i++){
         const itemsContainer = DOM.make('div', taskList, 'item-container'); 
@@ -135,10 +132,10 @@ function addRemoveAllBtn(){
     const listPage = document.querySelector('.list-page')
     const removeTaskBtn = DOM.make('button', listPage, 'remove-finished-btn');
     removeTaskBtn.textContent = 'Remove All Finished Tasks'; 
-    
 
     removeTaskBtn.addEventListener('click', () => {
         const parentList = DOM.findList(listPage); 
+
         parentList.finishedTasks.forEach((task) => {
             const newArray = addTask.moveTaskFrom(task, parentList.allTasks);
             parentList.allTasks = newArray; 
