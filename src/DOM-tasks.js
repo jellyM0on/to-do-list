@@ -139,6 +139,8 @@ function addRemoveAllBtn(){
         parentList.finishedTasks.forEach((task) => {
             const newArray = addTask.moveTaskFrom(task, parentList.allTasks);
             parentList.allTasks = newArray; 
+            console.log(parentList.finishedTasks); 
+            console.log(parentList.allTasks); 
             addList.test();
         }); 
         parentList.finishedTasks = []; 

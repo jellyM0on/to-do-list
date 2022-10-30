@@ -36,7 +36,7 @@ function validateTaskName(form){
 };
 
 function moveTaskFrom(task, initial){
-    const newInitial = initial.filter(item => item !== task);
+    const newInitial = initial.filter(item => item.code !== task.code);
     
     let newArray;
     if (!newInitial){
